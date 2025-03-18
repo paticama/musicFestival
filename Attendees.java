@@ -2,13 +2,14 @@ public class Attendees{
     String name; 
     int id, creditNum;
     boolean prevAtt;
-    //Ticket tickets; TODO: IMPLEMENT
+    Tickets ticketList[];
 
-    public Attendees(String n, int i, int cred, boolean prev){
+    public Attendees(String n, int i, int cred, boolean prev, Tickets tickLst[]){
         name = n;
         id = i;
         creditNum = cred;
         prevAtt = prev;
+        ticketList = tickLst;
     }
 
     public void setName(String n){
@@ -43,9 +44,29 @@ public class Attendees{
         return prevAtt;
     }
 
+    public void setTicketList(Tickets[] ticklst){
+        ticketList = ticklst;
+    }
+
+    public Tickets[] getTicketList(){
+        return ticketList;
+    }
+
     public String toString(){
         String str = "name: " + name + " ID: " + id + " credit card number " + creditNum + " has previously attended?: " + prevAtt;
         return str;
     }
+
+    /*  public boolean buyTickets(int howManyTickets){
+        //Check if the atendee is in the file
+        if (howManyTickets > 7){
+            return false;
+        }
+        else{
+            //Decrease the number of tickets artist have
+            
+        }
+    }
+    */
 }
 
