@@ -1,7 +1,7 @@
 public class Tickets {
     int id;
     double prevAttDiscount, vipDiscount;
-    Artist listArtists[];
+    Artist[] listArtists;
     public Tickets(int id, double prvDisc, double vipDisc, Artist[] ltArt){
         id = this.id;
         prevAttDiscount = prvDisc;

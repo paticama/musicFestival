@@ -2,8 +2,8 @@ public class Attendees{
     String name; 
     int id, creditNum;
     boolean prevAtt;
-    Tickets ticketList[];
-
+    Tickets[] ticketList;
+// ADD NUM OF TICKETS 
     public Attendees(String n, int i, int cred, boolean prev, Tickets tickLst[]){
         name = n;
         id = i;
@@ -57,16 +57,24 @@ public class Attendees{
         return str;
     }
 
+    //TODO: Implement buyTickets, cannot be done yet because we can't read from txt files yet
+    
+
     /*  public boolean buyTickets(int howManyTickets){
         //Check if the atendee is in the file
         if (howManyTickets > 7){
-            return false;
+            return false; --> Solo un return
         }
         else{
-            //Decrease the number of tickets artist have
+            //Decrease the number of tickets artist have and create a new ticket
             
         }
     }
     */
+
+    //TODO: Implement CheckPrize, cannot be done because we can't read from txt files yet
+    //TODO: ShowTicketInfo, cannot be done for the same reason
+    //TODO: EstimateHeadliners, cannot be done as we can't read from txt files
+    
 }
 

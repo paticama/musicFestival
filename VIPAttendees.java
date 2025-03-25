@@ -2,7 +2,7 @@ public class VIPAttendees extends Attendees {
     String name; 
     int id, creditNum, VIPNum;
     boolean prevAtt;
-    Tickets ticketList[];
+    Tickets[] ticketList;
 
 
     public VIPAttendees(String n, int id, int crNum, int vipNum, boolean prevAtt, Tickets[] tickLst){
@@ -22,4 +22,6 @@ public class VIPAttendees extends Attendees {
         String str = "name: " + name + " ID: " + id + " credit card number " + creditNum + " has previously attended?: " + prevAtt + "VIP number: " + VIPNum;
         return str;
     }
+
+    //TODO: Show info. of the concerts with merchandising stands for which a VIP has purchased tickets  
 }
