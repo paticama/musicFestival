@@ -57,24 +57,26 @@ public class Attendees{
         return str;
     }
 
-    //TODO: Implement buyTickets, cannot be done yet because we can't read from txt files yet
-    
-
-    /*  public boolean buyTickets(int howManyTickets){
-        //Check if the atendee is in the file
-        if (howManyTickets > 7){
-            return false; --> Solo un return
+    public boolean buyTickets(int howManyTickets){
+        boolean allRight = true;
+        if (howManyTickets > 7) {
+            allRight = false;
         }
         else{
-            //Decrease the number of tickets artist have and create a new ticket
-            
-        }
-    }
-    */
 
-    //TODO: Implement CheckPrize, cannot be done because we can't read from txt files yet
-    //TODO: ShowTicketInfo, cannot be done for the same reason
-    //TODO: EstimateHeadliners, cannot be done as we can't read from txt files
+        }
+        return allRight;
+    }
+
+    public int CheckPrice(Tickets ticket){
+
+        return price;
+    }
+    public String checkTicketInfo(Tickets ticket){
+        String info = ticket.toString();
+        return info;
+    }
+    //TODO: EstimateHeadliners, cannot be done as we can't read from txt files, y como carajo le saco el precio, que soy? vidente?
     
 }
 

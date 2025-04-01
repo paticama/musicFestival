@@ -43,5 +43,13 @@ public class Festival {
         return str;
     }
 
-    //TODO: Implement the CalculateSecurity method, which needs to read the maximum num of attendants from Asistentes.txt
-}
+    public double calculateSecurity(SecurityCompany secComp, int attendance, int numMerch, int numSoloistDressroom){
+        // We pass the class Security Company, where we find how much they charge per security person, as well as how many people attend, how many merchandise stands there are and how many dressing rooms soloist have
+        // As it's specified, we know that there's a security member every 500 attendees, two for every merchandise stand and one for every dressing rooms.  
+
+        int numSecurity = (attendance/500) + 2*numMerch + numSoloistDressroom;
+        return numSecurity * secComp.getCharge();
+
+    }
+}    
+
