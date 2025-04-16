@@ -1,19 +1,20 @@
 public class Group extends Artist {
 
     public boolean sellMerch;
-    public int numMerch;
-    public Group(String name, String genre, boolean headliner, boolean confirmedAtt, int capacity, int duration,double price, boolean sellMerch, int numMerch) {
+    public int memberNum;
+    public Group(String name, String genre, boolean headliner, boolean confirmedAtt, int capacity, int duration, double price, int memberNum,boolean sellMerch) {
             super(name, genre, headliner, confirmedAtt, capacity, duration, price);
             this.sellMerch = sellMerch;
-            this.numMerch = numMerch;
+            this.memberNum = memberNum;
         }
     
-    public int getNumMerch() {
-        return numMerch;
+    public int getMemberNum(){
+        return memberNum;
     }
-    public void setNumMerch(int numMerch) {
-        this.numMerch = numMerch;
+    public void setMemberNum(int memberNum){
+        this.memberNum= memberNum;
     }
+    
     public boolean getSellMerch(){
         return sellMerch;
     }
@@ -30,7 +31,7 @@ public class Group extends Artist {
     }
     public String toString() {
         
-        return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + "sell merchandising" + sellMerch + "number merchandising" + numMerch);
+        return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + "how many in the group"+memberNum+ "Do they sell merchandising?" + sellMerch);
     }
 
     
