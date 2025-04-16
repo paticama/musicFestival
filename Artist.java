@@ -3,7 +3,7 @@ public abstract class Artist {
     boolean headliner,confirmedAtt;
     int capacity, duration;
     double price;
-    public Artist(String name, String genre, boolean headliner, boolean confirmedAtt, int capacity, int duration, double price){
+    public Artist(String name, String genre, boolean headliner, int capacity, int duration, double price,  boolean confirmedAtt){
         this.name = name;
         this.genre = genre;
         this.headliner = headliner;
