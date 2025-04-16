@@ -2,7 +2,7 @@ public class Group extends Artist {
 
     public boolean sellMerch;
     public int memberNum;
-    public Group(String name, String genre, boolean headliner, boolean confirmedAtt, int capacity, int duration, double price, int memberNum,boolean sellMerch) {
+    public Group(String name, String genre, boolean headliner,  int capacity, int duration, double price,boolean confirmedAtt, int memberNum,boolean sellMerch) {
             super(name, genre, headliner,capacity, duration, price,  confirmedAtt);
             this.sellMerch = sellMerch;
             this.memberNum = memberNum;

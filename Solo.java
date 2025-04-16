@@ -3,7 +3,7 @@ public class Solo extends Artist {
     boolean dressingRoom;
     int managerNum;
 
-    public Solo(String name, String genre, boolean headliner, boolean confirmedAtt, int capacity, int duration, double price,boolean dressingRoom, int managerNum) {
+    public Solo(String name, String genre, boolean headliner,  int capacity, int duration, double price,boolean confirmedAtt,boolean dressingRoom, int managerNum) {
             super(name, genre, headliner, capacity, duration, price, confirmedAtt);
             this.dressingRoom = dressingRoom;
             this.managerNum = managerNum;
