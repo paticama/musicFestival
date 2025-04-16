@@ -3,7 +3,9 @@ public class Attendees{
     int id, creditNum;
     boolean prevAtt;
     Tickets[] ticketList;
+
 // ADD NUM OF TICKETS 
+
     public Attendees(String n, int i, int cred, boolean prev, Tickets tickLst[]){
         name = n;
         id = i;
@@ -68,11 +70,11 @@ public class Attendees{
         return allRight;
     }
 
-    public int CheckPrice(Tickets ticket){
-
-        return price;
-    }
-    public String checkTicketInfo(Tickets ticket){
+    //public int CheckPrice(Tickets ticket){
+        //int price;
+        //return price;
+    //}
+    public String checkTicketInfo(Tickets ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
         String info = ticket.toString();
         return info;
     }
