@@ -1,17 +1,16 @@
 public class Attendees{
-    String name; 
-    int id, creditNum;
+    String name, id, creditNum; 
     boolean prevAtt;
+    int numTickets;
     Tickets[] ticketList;
 
-// ADD NUM OF TICKETS 
-
-    public Attendees(String n, int i, int cred, boolean prev, Tickets tickLst[]){
+    public Attendees(String n, String i, String cred, boolean prev, int numTickets){
         name = n;
         id = i;
         creditNum = cred;
         prevAtt = prev;
-        ticketList = tickLst;
+
+        Tickets[] ticketList = new Tickets[numTickets];
     }
 
     public void setName(String n){
@@ -22,19 +21,19 @@ public class Attendees{
         return name;
     }
 
-    public void setId(int i){
+    public void setId(String i){
         id = i;
     }
 
-    public int getId(){
+    public String getId(){
         return id;
     }
 
-    public void setCredNum(int cred){
+    public void setCredNum(String cred){
     creditNum = cred;
     }
 
-    public int getCredNum(){
+    public String getCredNum(){
         return creditNum;
     }
 
@@ -74,6 +73,7 @@ public class Attendees{
         //int price;
         //return price;
     //}
+    
     public String checkTicketInfo(Tickets ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
         String info = ticket.toString();
         return info;

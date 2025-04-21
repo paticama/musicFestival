@@ -33,6 +33,8 @@ public class leerAsist {
 	} 
 }
 
+
+/*
 public Artist leerAsistentes2(String cadena){
 	File f = new File(cadena);
 	Scanner nombre_f = new Scanner(f);
@@ -55,3 +57,5 @@ public Artist leerAsistentes2(String cadena){
 
 	}
 }
+
+ */

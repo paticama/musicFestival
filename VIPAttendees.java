@@ -1,12 +1,10 @@
 public class VIPAttendees extends Attendees {
     String name; 
-    int id, creditNum, VIPNum;
+    int id, creditNum, VIPNum, numTickets;
     boolean prevAtt;
-    Tickets[] ticketList;
 
-
-    public VIPAttendees(String n, int id, int crNum, int vipNum, boolean prevAtt, Tickets[] tickLst){
-        super(n, id, crNum, prevAtt, tickLst);
+    public VIPAttendees(String n, String id, String crNum, int vipNum, boolean prevAtt, int numTickets){
+        super(n, id, crNum, prevAtt, numTickets);
         VIPNum = vipNum;
     }
 

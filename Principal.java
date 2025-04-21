@@ -3,32 +3,7 @@ import java.util.*;
 
 public class Principal {
 
-	// Método que lee los asistentes del fichero de texto
-	// public void leerAsistentes(String cadena) throws IOException {
-	// 	File f = new File(cadena);
-	// 	Scanner nombre_f = new Scanner(f);
-
-	// 	String nombre, dni, tarjeta;
-	// 	boolean frecuente, vip;
-	// 	int tarjetaVIP;
-				 
-	// 	while (nombre_f.hasNext()) {
-	// 		nombre = nombre_f.next();
-	// 		dni = nombre_f.next();
-	// 		tarjeta = nombre_f.next();	
-	// 		frecuente = nombre_f.nextBoolean();
-	// 		vip = nombre_f.nextBoolean();
-	// 		System.out.print(nombre +" "+ dni+" "+ tarjeta+" "+ frecuente+" "+ vip);
-	// 		if (vip) { 
-	// 			tarjetaVIP = nombre_f.nextInt();
-	// 			System.out.println(" "+tarjetaVIP);
-	// 		} else 
-	// 		{
-	// 			System.out.println();
-	// 		}
-	// 	}
-	// } 
-	public Attendees leerAsistentes(String cadena) throws IOException {
+	public Attendees[] leerAsistentes(String cadena) throws IOException {
 		
 		File f = new File(cadena);
 		Scanner nombre_f = new Scanner(f);
@@ -36,16 +11,35 @@ public class Principal {
 		String nombre, dni, tarjeta;
 		boolean frecuente, vip;
 		int tarjetaVIP;
-				 
+		int numTickets = 7;
+
+		int count = 0;
+		while (nombre_f.hasNextLine()) {
+			count++;
+		}
+			
+		Attendees[] att = new Attendees[count];
+	
+		count = 0;
 		while (nombre_f.hasNext()) {
 			nombre = nombre_f.next();
 			dni = nombre_f.next();
 			tarjeta = nombre_f.next();	
 			frecuente = nombre_f.nextBoolean();
 			vip = nombre_f.nextBoolean();
+			if (vip){
+				tarjetaVIP = nombre_f.nextInt();
+				att[count] = new VIPAttendees(nombre, dni, tarjeta, tarjetaVIP, frecuente, numTickets); 
+			} 
+			else{
+				att[count] = new Attendees(nombre, dni, tarjeta, frecuente, numTickets); 
+			}
+			count++;
 		}
-		Attendees att = new Attendees(nombre,dni,tarjeta,frecuente,null);
+		return att;
 	}
+
+
 	public Artist[] readArtist(String cadena) throws IOException {
         //Opens given file and reads from it
 		File f = new File(cadena);
@@ -84,6 +78,7 @@ public class Principal {
 				phoneNum = nombre_f.nextInt();
 				art[count] = new Solo(name, genre, principal, maxAudience, duration, price, confirmedAssistance, dressing, phoneNum);
 			}
+			count++;
 	    }
 		return art;
     } 
