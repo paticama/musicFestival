@@ -26,6 +26,7 @@ public class Solo extends Artist {
         this.dressingRoom = dressingRoom;
     }
     
+    @Override
     public String toString() {
         
         return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + "dressing room" + dressingRoom + "manager number" + managerNum);

@@ -29,6 +29,8 @@ public class Group extends Artist {
             return false;
         }
     }
+
+    @Override
     public String toString() {
         return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + "how many in the group"+memberNum+ "Do they sell merchandising?" + sellMerch);
     }

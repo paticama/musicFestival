@@ -53,6 +53,7 @@ public class Attendees{
         return ticketList;
     }
 
+    @Override
     public String toString(){
         String str = "name: " + name + " ID: " + id + " credit card number " + creditNum + " has previously attended?: " + prevAtt;
         return str;

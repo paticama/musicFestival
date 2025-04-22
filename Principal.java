@@ -43,7 +43,7 @@ public class Principal {
 	public Artist[] readArtist(String cadena) throws IOException {
         //Opens given file and reads from it
 		File f = new File(cadena);
-		Scanner nombre_f = new Scanner(f);
+		Scanner countf = new Scanner(f);
         
         //Initialization
 		
@@ -53,9 +53,18 @@ public class Principal {
         String name, genre; 
         boolean principal, dressing, merchandising, confirmedAssistance;
 		int count = 0;
-		while (nombre_f.hasNextLine()) {
-			count++;
+
+		while (countf.hasNextLine()) {
+			countf.nextLine();
+				count++;
+			
 		}
+
+		countf.close();
+
+		Scanner nombre_f = new Scanner(f);
+
+
 		Artist[] art = new Artist[count];
         //We use the while to say that while we have text, it has to keep reading, introducing every data in every line of the terminal
 		count = 0;
@@ -80,6 +89,7 @@ public class Principal {
 			}
 			count++;
 	    }
+		nombre_f.close();
 		return art;
     } 
 }

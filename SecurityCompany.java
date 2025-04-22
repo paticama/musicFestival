@@ -28,6 +28,6 @@ public class SecurityCompany {
     public String toString(){
         return "charge: " + charge + " name: " + name;
     }
-    //we do not put here the method calculateCharge because it is in the main (the class festival)
+    //we do not put here the method calculateCharge because it is in the class festival)
     
 }

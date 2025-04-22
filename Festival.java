@@ -44,12 +44,14 @@ public class Festival {
     }
 
     public double calculateSecurity(SecurityCompany secComp, int attendance, int numMerch, int numSoloistDressroom){
-
+        
         // We pass the class Security Company, where we find how much they charge per security person, as well as how many people attend, 
         // how many merchandise stands there are and how many dressing rooms soloist have.
 
         // As it's specified, we know that there's a security member every 500 attendees, two for every merchandise stand and one for every dressing rooms. 
         // attendance, numMerch and numSoloistDressroom needs to be passed after reading txt files. 
+
+        
 
         int numSecurity = (attendance/500) + 2*numMerch + numSoloistDressroom;
         return numSecurity * secComp.getCharge();
