@@ -12,7 +12,10 @@ public abstract class Artist {
         this.duration = duration;
         this.price = price;
     }
-    public abstract boolean hasStand();
+
+    public abstract boolean getSellMerch();
+    public abstract boolean getDressingRoom();
+
     public int getCapacity() {
         return capacity;
     }

@@ -29,7 +29,7 @@ public class Solo extends Artist {
     @Override
     public String toString() {
         
-        return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + "dressing room" + dressingRoom + "manager number" + managerNum);
+        return ("name: " + name + " genre: " + genre + " headliner: " + headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + duration + " price: " + price + " dressing room: " + dressingRoom + " manager number: " + managerNum);
     }
 }
 

@@ -59,7 +59,6 @@ public class Principal {
 				count++;
 			
 		}
-
 		countf.close();
 
 		Scanner nombre_f = new Scanner(f);
