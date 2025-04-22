@@ -28,10 +28,21 @@ public class Main {
                 numSec += 1;
             }
         }
-
         numSec += assistance*1000/500;
         double price = numSec * 250;
         System.out.println(price);
+
+        //Query 4
+
+        double expectedSpent = 0;
+        for (int i = 0; i < art.length; i++) {
+            if (art[i].getConfirmedAtt()){
+                expectedSpent += art[i].getPrice();
+            } else if (art[i] instanceof Group && art[i].getSellMerch()){
+                expectedSpent += iConstants.TSHIRTPRICE;
+            }
+        }
+        System.out.println(expectedSpent);
     }
     
 }

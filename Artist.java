@@ -31,6 +31,10 @@ public abstract class Artist {
     public double getPrice() {
         return price;
     }
+    public boolean getConfirmedAtt(){
+        return confirmedAtt;
+    }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
