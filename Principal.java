@@ -6,7 +6,7 @@ public class Principal {
 	public Attendees[] leerAsistentes(String cadena) throws IOException {
 		
 		File f = new File(cadena);
-		Scanner nombre_f = new Scanner(f);
+		Scanner countf = new Scanner(f);
 
 		String nombre, dni, tarjeta;
 		boolean frecuente, vip;
@@ -14,12 +14,14 @@ public class Principal {
 		int numTickets = 7;
 
 		int count = 0;
-		while (nombre_f.hasNextLine()) {
+		while (countf.hasNextLine()) {
+			countf.nextLine();
 			count++;
 		}
-			
+		countf.close();
 		Attendees[] att = new Attendees[count];
-	
+		
+		Scanner nombre_f = new Scanner(f);
 		count = 0;
 		while (nombre_f.hasNext()) {
 			nombre = nombre_f.next();
@@ -36,6 +38,7 @@ public class Principal {
 			}
 			count++;
 		}
+		nombre_f.close();
 		return att;
 	}
 
