@@ -1,8 +1,8 @@
-
+import java.util.*;
 import java.io.IOException;
 
 public class Main {
-
+    private static final Scanner INPUT = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
 
 
@@ -31,7 +31,44 @@ public class Main {
         numSec += assistance*1000/500;
         double price = numSec * 250;
         System.out.println(price);
-
+        
+        //Query 3
+       
+        double priceArt = 0;
+        String artName,attId;
+        boolean nameReal = false;
+        Principal readerAtt = new Principal();
+        Attendees att[] = readerAtt.leerAsistentes("Asistentes.txt");
+        while (nameReal == false) {
+            System.out.println("Tell me the name of the artist you want to go");
+            artName = INPUT.next();
+            System.out.println("Tell me the ID of the Attendee");
+            attId = INPUT.next();
+            for (int i = 0; i < art.length; i++) {
+                for (int j = 0; j < att.length; j++) {
+                    if (art[i].getName().equals(artName) && att[i].getId().equals(attId)) {
+                        priceArt = art[i].getPrice();
+                        if (att[i].prevAtt == true) {
+                            priceArt = art[i].getPrice() * iConstants.TICKETPREVATTENDEDISCOUNT;
+                            if (att[i] instanceof VIPAttendees) {
+                                priceArt = art[i].getPrice() * iConstants.TICKETPREVATTENDEDISCOUNT * iConstants.TICKETVIP;
+                                nameReal = true;
+                            }
+                            nameReal = true;
+                        }  
+                        else{
+                            priceArt = art[i].getPrice();
+                            if (att[i] instanceof VIPAttendees) {
+                                priceArt = art[i].getPrice() * iConstants.TICKETVIP;
+                                nameReal = true;
+                            }
+                            nameReal = true;
+                        }  
+                    }
+                } 
+            }
+        }
+        System.out.println("your price ticket would be: "+ priceArt);
         //Query 4
 
         double expectedSpent = 0;
@@ -43,6 +80,11 @@ public class Main {
             }
         }
         System.out.println(expectedSpent);
-    }
-    
+        }
+        //Query 5
+
+
+        //Query 6
+
+        //Query 7
 }
