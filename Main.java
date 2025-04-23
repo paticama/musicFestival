@@ -2,6 +2,35 @@ import java.util.*;
 import java.io.IOException;
 
 public class Main {
+    static double calcprice(Attendees [] att,Artist []art, String attId, boolean nameReal){
+        String artName;
+        double priceArt = 0;
+        for (int i = 0; i < att.length; i++) {
+            if (att[i].getId().equalsIgnoreCase(attId)) {
+                System.out.println("Tell me the name of the artist you want to go");
+                artName = INPUT.next();
+                for (int j = 0; j < art.length; j++) {
+                    if (art[j].getName().equalsIgnoreCase(artName)) {
+                        priceArt = art[j].getPrice();
+                        if (att[i].getPrevAtt() == true) {
+                            priceArt = priceArt - (priceArt * iConstants.TICKETPREVATTENDEDISCOUNT);
+                            if (att[i] instanceof VIPAttendees) {
+                                priceArt = priceArt - (priceArt* iConstants.TICKETVIP);
+                                nameReal = true;
+                            }
+                            nameReal = true;
+                        }
+                        else if (att[i] instanceof VIPAttendees) {
+                            priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
+                            
+                        }
+                        nameReal = true;
+                    }
+                }
+            }
+        }
+        return priceArt;
+    }
     private static final Scanner INPUT = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
 
@@ -34,40 +63,17 @@ public class Main {
         System.out.println(art[2].getPrice());
         //Query 3
        
-        double priceArt = 0;
-        String artName,attId;
+        double priceTicket = 0;
+        String attId;
         boolean nameReal = false;
         Principal readerAtt = new Principal();
         Attendees att[] = readerAtt.leerAsistentes("Asistentes.txt");
         while (nameReal == false) {
             System.out.println("Tell me the ID of the Attendee");
             attId = INPUT.next();
-            for (int i = 0; i < att.length; i++) {
-                if (att[i].getId().equalsIgnoreCase(attId)) {
-                    System.out.println("Tell me the name of the artist you want to go");
-                    artName = INPUT.next();
-                    for (int j = 0; j < art.length; j++) {
-                        if (art[j].getName().equalsIgnoreCase(artName)) {
-                            priceArt = art[j].getPrice();
-                            if (att[i].getPrevAtt() == true) {
-                                priceArt = priceArt - (priceArt * iConstants.TICKETPREVATTENDEDISCOUNT);
-                                if (att[i] instanceof VIPAttendees) {
-                                    priceArt = priceArt - (priceArt* iConstants.TICKETVIP);
-                                    nameReal = true;
-                                }
-                                nameReal = true;
-                            }
-                            else if (att[i] instanceof VIPAttendees) {
-                                priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
-                                
-                            }
-                            nameReal = true;
-                        }
-                    }
-                }
-            }
+            priceTicket = calcprice(att, art, attId, nameReal);
         }
-        System.out.println("your price ticket would be: "+ priceArt);
+        System.out.println("your price ticket would be: "+ priceTicket);
         //Query 4
 
         double expectedSpent = 0;
@@ -81,14 +87,17 @@ public class Main {
         System.out.println(expectedSpent);
 
         //Query 5
-        boolean idReal = false;
+        //Preguntar a Aurora si es necesario que se guarden los no registrados
+        System.out.println("Tell me the ID");
+        attId = INPUT.next();
 
-        //System.out.println("Tell me the ID");
-        //attId = INPUT.next();
-
-        while (idReal == false) {
-            
+        for (int i = 0; i < att.length; i++) {
+            if (!att[i].getId().equals(attId)) {
+                System.out.println("We need your information, please give us the next data: ");
+                System.out.println("name: ");
+            }
         }
+        
         
 
         //Query 6
