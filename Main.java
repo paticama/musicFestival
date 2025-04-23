@@ -1,11 +1,10 @@
-import java.util.*;
 import java.io.IOException;
+import java.util.*;
 
 public class Main {
     private static final Scanner INPUT = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
-
-
+        
         //Query 1
         Principal reader = new Principal();
         Artist art[] = reader.readArtist("Artistas.txt");
@@ -14,8 +13,7 @@ public class Main {
             System.out.println(art[i].toString()); 
         }
 
-        //Query 2
-
+        //Query 2        
         int assistance = 0;
         int numSec = 0;
 
@@ -30,7 +28,6 @@ public class Main {
         }
         numSec += assistance*1000/500;
         double price = numSec * 250;
-        System.out.println(price);
         
         //Query 3
        
@@ -39,6 +36,7 @@ public class Main {
         boolean nameReal = false;
         Principal readerAtt = new Principal();
         Attendees att[] = readerAtt.leerAsistentes("Asistentes.txt");
+        
         while (nameReal == false) {
             System.out.println("Tell me the name of the artist you want to go");
             artName = INPUT.next();
@@ -80,11 +78,22 @@ public class Main {
             }
         }
         System.out.println(expectedSpent);
-        }
+        
         //Query 5
 
-
+ 
         //Query 6
 
+        System.out.println("Tell me the ID of the Attendee: ");
+        attId = INPUT.next();
+
+        for (int i = 0; i < art.length; i++) {
+            if (att[i].getId().equals(attId)){
+                att[i].ticketList.toString();
+            }
+        }
+
         //Query 7
+
+    }
 }
