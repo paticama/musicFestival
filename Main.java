@@ -88,6 +88,9 @@ public class Main {
 
         //Query 5
         //Preguntar a Aurora si es necesario que se guarden los no registrados
+        String name, id, crednum;
+        boolean prevAtt, vip;
+        int numtick = 7, vipnum; //max tickets
         System.out.println("Tell me the ID");
         attId = INPUT.next();
 
@@ -95,6 +98,32 @@ public class Main {
             if (!att[i].getId().equals(attId)) {
                 System.out.println("We need your information, please give us the next data: ");
                 System.out.println("name: ");
+                name = INPUT.next();
+                System.out.println("ID: ");
+                id = INPUT.next();
+                System.out.println("Credit card number: ");
+                crednum = INPUT.next();
+                System.out.println("Have you assisted previously? (true or false)");
+                prevAtt = INPUT.nextBoolean();
+                while (prevAtt != true || prevAtt != false) {
+                    System.out.println("Try again please");
+                    prevAtt = INPUT.nextBoolean();
+                }
+                System.out.println("Are you VIP? (true or false)");
+                vip = INPUT.nextBoolean();
+                while (vip != true || vip != false) {
+                    System.out.println("Try again please");
+                    vip = INPUT.nextBoolean();
+                }
+                if (vip == true) {
+                    System.out.println("Tell me your vip number: ");
+                    vipnum = INPUT.nextInt();
+                    VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip, numtick);
+                }
+                else{
+                    
+                }
+
             }
         }
         
@@ -104,6 +133,8 @@ public class Main {
 
 
         //Query 7
+
+
     }
         
 }

@@ -1,13 +1,14 @@
 public class Attendees{
     String name, id, creditNum; 
-    boolean prevAtt;
+    boolean prevAtt, isVIP;
     int numTickets;
     Tickets[] ticketList;
 
-    public Attendees(String n, String i, String cred, boolean prev, int numTickets){
+    public Attendees(String n, String i, String cred, boolean prev,boolean vip, int numTickets){
         name = n;
         id = i;
         creditNum = cred;
+        isVIP = vip;
         prevAtt = prev;
 
         Tickets[] ticketList = new Tickets[numTickets];

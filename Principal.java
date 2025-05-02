@@ -31,10 +31,10 @@ public class Principal {
 			vip = nombre_f.nextBoolean();
 			if (vip){
 				tarjetaVIP = nombre_f.nextInt();
-				att[count] = new VIPAttendees(nombre, dni, tarjeta, tarjetaVIP, frecuente, numTickets); 
+				att[count] = new VIPAttendees(nombre, dni, tarjeta, tarjetaVIP, frecuente,vip, numTickets); 
 			} 
 			else{
-				att[count] = new Attendees(nombre, dni, tarjeta, frecuente, numTickets); 
+				att[count] = new Attendees(nombre, dni, tarjeta, frecuente,vip, numTickets); 
 			}
 			count++;
 		}
