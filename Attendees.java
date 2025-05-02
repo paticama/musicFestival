@@ -4,7 +4,7 @@ public class Attendees{
     int numTickets;
     Tickets[] ticketList;
 
-    public Attendees(String n, String i, String cred, boolean prev,boolean vip, int numTickets){
+    public Attendees(String n, String i, String cred, boolean prev, boolean vip, int numTickets){
         name = n;
         id = i;
         creditNum = cred;

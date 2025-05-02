@@ -1,9 +1,7 @@
 public class VIPAttendees extends Attendees {
-    String name; 
-    int id, creditNum, VIPNum, numTickets;
-    boolean prevAtt,isVIP;
+    int VIPNum;
 
-    public VIPAttendees(String n, String id, String crNum, int vipNum, boolean prevAtt,boolean isVIP, int numTickets){
+    public VIPAttendees(String n, String id, String crNum, int vipNum, boolean prevAtt, boolean isVIP, int numTickets){
         super(n,id,crNum,prevAtt,isVIP,numTickets);
         VIPNum = vipNum;
     }
@@ -15,9 +13,9 @@ public class VIPAttendees extends Attendees {
     public int getVipNum(){
         return VIPNum;
     }
-
+    
     public String toString(){
-        String str = "name: " + name + " ID: " + id + " credit card number " + creditNum + " has previously attended?: " + prevAtt + "VIP number: " + VIPNum;
+        String str = super.toString() + "VIP number: " + VIPNum;
         return str;
     }
 

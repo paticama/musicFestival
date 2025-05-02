@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.IOException;
+import java.util.*;
 
 public class Main {
     static double calcprice(Attendees [] att,Artist []art, String attId, boolean nameReal){
@@ -61,6 +61,7 @@ public class Main {
         double price = numSec * 250;
         System.out.println(price);
         System.out.println(art[2].getPrice());
+        
         //Query 3
        
         double priceTicket = 0;
@@ -68,12 +69,22 @@ public class Main {
         boolean nameReal = false;
         Principal readerAtt = new Principal();
         Attendees att[] = readerAtt.leerAsistentes("Asistentes.txt");
-        while (nameReal == false) {
-            System.out.println("Tell me the ID of the Attendee");
-            attId = INPUT.next();
-            priceTicket = calcprice(att, art, attId, nameReal);
+
+        System.out.println("Tell me the ID of the Attendee");
+        attId = INPUT.next();
+
+        for (int i = 0; i < att.length; i++) {
+            if (attId.equals(att[i].getId())){
+                nameReal = true;
+            }
         }
-        System.out.println("your price ticket would be: "+ priceTicket);
+        if (nameReal == true) {
+            priceTicket = calcprice(att, art, attId, nameReal);
+            System.out.println(priceTicket);
+        } else{
+            System.out.println("It seems something went wrong. That Attendee is not in our database. ");
+        }
+    
         //Query 4
 
         double expectedSpent = 0;
@@ -93,48 +104,70 @@ public class Main {
         int numtick = 7, vipnum; //max tickets
         System.out.println("Tell me the ID");
         attId = INPUT.next();
-
+        boolean preexAtt = false;
         for (int i = 0; i < att.length; i++) {
-            if (!att[i].getId().equals(attId)) {
-                System.out.println("We need your information, please give us the next data: ");
-                System.out.println("name: ");
-                name = INPUT.next();
-                System.out.println("ID: ");
-                id = INPUT.next();
-                System.out.println("Credit card number: ");
-                crednum = INPUT.next();
-                System.out.println("Have you assisted previously? (true or false)");
-                prevAtt = INPUT.nextBoolean();
-                while (prevAtt != true || prevAtt != false) {
-                    System.out.println("Try again please");
-                    prevAtt = INPUT.nextBoolean();
-                }
-                System.out.println("Are you VIP? (true or false)");
-                vip = INPUT.nextBoolean();
-                while (vip != true || vip != false) {
-                    System.out.println("Try again please");
-                    vip = INPUT.nextBoolean();
-                }
-                if (vip == true) {
-                    System.out.println("Tell me your vip number: ");
-                    vipnum = INPUT.nextInt();
-                    VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip, numtick);
-                }
-                else{
-                    
-                }
-
+            if (att[i].getId().equals(attId)){
+                preexAtt = true;
             }
+        }     
+        if (preexAtt == false) {
+            System.out.println("We need your some more information, please give us the next data: ");
+            System.out.println("name: ");
+            name = INPUT.next();
+            //No need to ask again!
+            id = attId;
+            System.out.println("Credit card number: ");
+            crednum = INPUT.next();
+            
+            System.out.println("Have you assisted previously? (true or false)");
+            
+            while (!INPUT.hasNextBoolean()) {
+                System.out.println("Try again please");
+                INPUT.next();
+            }
+            prevAtt = INPUT.nextBoolean();
+
+            System.out.println("Are you VIP? (true or false)");
+
+            while (!INPUT.hasNextBoolean()) {
+                System.out.println("Try again please");
+                INPUT.next();
+            }
+            vip = INPUT.nextBoolean();
+
+            if (vip == true) {
+                System.out.println("Tell me your vip number: ");
+                vipnum = INPUT.nextInt();
+                VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip, numtick);
+            }
+            else{
+                Attendees newatt = new Attendees(name, id, crednum, prevAtt, vip, numtick);
+            }
+            //FALTA COMPRARLE LOS TICKETS!!!
+            
         }
-        
-        
 
         //Query 6
-
+        System.out.println("Tell me the ID");
+        attId = INPUT.next();
+        int a = 0; //Ponerle otro nombre?
+        boolean preexAttOtro = false;
+        for (int i = 0; i < att.length; i++) {
+            if (att[i].getId().equals(attId)){
+                preexAttOtro = true;
+                a = i;
+            }
+        }
+        if(preexAtt == true){
+            while (att[a].ticketList != null){
+                System.out.println(att[a].ticketList.toString());
+            }
+        } else {
+            System.out.println("You need to be registered!");
+        }
 
         //Query 7
-
-
     }
-        
 }
+        
+//}
