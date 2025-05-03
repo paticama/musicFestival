@@ -155,7 +155,7 @@ public class Main {
         int b = 0;
 
         for (int i = 0; i < art.length; i++) {
-            if (art[i].getName().equals(arts)){ //TODO: YOU CAN ONLY BUT TICKETS FOR CONFIRMED ARTISTS!!!
+            if (art[i].getName().equalsIgnoreCase(arts)){ //TODO: YOU CAN ONLY BUT TICKETS FOR CONFIRMED ARTISTS!!!
                 if(art[i].getConfirmedAtt()){
                     artsExist = true;
                     b = i;
@@ -218,6 +218,14 @@ public class Main {
         }
 
         //Query 7
+        //Un for que recorra artistas y un if para ser vip y que tenga mercha ese grupo
+        for (int i = 0; i < art.length ; i++) {
+            for (int j = 0; j < att.length; j++) {
+                if (att[j] instanceof VIPAttendees && art[i] instanceof Group && art[i].getSellMerch() == true) {
+                    System.out.println(art[i].toString());
+                }
+            }
+        }
     }
 }
         
