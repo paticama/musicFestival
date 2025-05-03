@@ -105,11 +105,13 @@ public class Main {
         System.out.println("Tell me the ID");
         attId = INPUT.next();
         boolean preexAtt = false;
+        int c = 0;
         for (int i = 0; i < att.length; i++) {
             if (att[i].getId().equals(attId)){
                 preexAtt = true;
+                c = i;
             }
-        }     
+        }     //From here to the end of if, I'd make a "create attendee" method
         if (preexAtt == false) {
             System.out.println("We need your some more information, please give us the next data: ");
             System.out.println("name: ");
@@ -138,20 +140,66 @@ public class Main {
             if (vip == true) {
                 System.out.println("Tell me your vip number: ");
                 vipnum = INPUT.nextInt();
-                VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip, numtick);
+                VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip);
             }
             else{
-                Attendees newatt = new Attendees(name, id, crednum, prevAtt, vip, numtick);
+                Attendees newatt = new Attendees(name, id, crednum, prevAtt, vip);
             }
             //FALTA COMPRARLE LOS TICKETS!!!
             
         }
 
+        System.out.println("Alright, now, what Artist do you want to buy tickets for?");
+        String arts = INPUT.next();
+        boolean artsExist = false;
+        int b = 0;
+
+        for (int i = 0; i < art.length; i++) {
+            if (art[i].getName().equals(arts)){ //TODO: YOU CAN ONLY BUT TICKETS FOR CONFIRMED ARTISTS!!!
+                if(art[i].getConfirmedAtt()){
+                    artsExist = true;
+                    b = i;
+                } else {
+                    System.out.println("You can only buy confirmed artists tickets!");
+                }
+
+            }
+            else if (i == art.length && !artsExist) {
+                System.out.println("It seems something went wrong, we cannot find that artist, try again!");
+            }
+        } 
+        if(artsExist){ // it does not matter what b is if arts don't exist
+            boolean ticketBought = false;
+
+            for (int i = 0; i < iConstants.TICKETS; i++) {
+                if (!ticketBought && att[c].ticketList[i] == null){
+                    //Llamar aquí al precio
+                    att[c].ticketList[i] = new Tickets(23, art); //CAMBIAR ESE 23!!
+                    System.out.println("Ticket bought! enjoy the Festival!");
+                    ticketBought = true;  
+
+                } else if (!ticketBought && i == iConstants.TICKETS - 1){
+                    System.out.println("It looks like you have already bought 7 tickets!!");
+                }
+            }
+        }
+
+        System.out.println("DEBUG: Tickets after purchase for " + att[c].getName());
+        for (int i = 0; i < att[c].ticketList.length; i++) {
+            if (att[c].ticketList[i] != null) {
+                System.out.println("Slot " + i + ": " + att[c].ticketList[i].toString());
+            } else {
+                System.out.println("Slot " + i + ": Empty");
+            }
+        }
+
         //Query 6
         System.out.println("Tell me the ID");
         attId = INPUT.next();
+
         int a = 0; //Ponerle otro nombre?
         boolean preexAttOtro = false;
+
         for (int i = 0; i < att.length; i++) {
             if (att[i].getId().equals(attId)){
                 preexAttOtro = true;
@@ -159,8 +207,11 @@ public class Main {
             }
         }
         if(preexAtt == true){
-            while (att[a].ticketList != null){
-                System.out.println(att[a].ticketList.toString());
+            System.out.println("Tickets for " + att[a].getName() + " with ID: " + att[a].getId());
+            for(int i = 0; i < att[a].ticketList.length; i++){
+                if (att[a].ticketList[i] != null) {
+                    System.out.println(att[a].ticketList[i].toString());
+                }
             }
         } else {
             System.out.println("You need to be registered!");

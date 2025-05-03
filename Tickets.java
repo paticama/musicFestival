@@ -3,7 +3,7 @@ public class Tickets {
     double prevAttDiscount, vipDiscount;
     Artist[] listArtists;
     public Tickets(int id, Artist[] ltArt){
-        id = this.id;
+        this.id = id;
         listArtists = ltArt;
     }
 
@@ -12,7 +12,7 @@ public class Tickets {
     }
 
     public void setId(int id){
-        id = this.id;
+        this.id = id;
     }
     
     public Artist[] getListArtist(){

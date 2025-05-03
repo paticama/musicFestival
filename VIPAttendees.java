@@ -1,8 +1,8 @@
 public class VIPAttendees extends Attendees {
     int VIPNum;
 
-    public VIPAttendees(String n, String id, String crNum, int vipNum, boolean prevAtt, boolean isVIP, int numTickets){
-        super(n,id,crNum,prevAtt,isVIP,numTickets);
+    public VIPAttendees(String n, String id, String crNum, int vipNum, boolean prevAtt, boolean isVIP){
+        super(n,id,crNum,prevAtt,isVIP);
         VIPNum = vipNum;
     }
 
