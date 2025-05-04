@@ -3,7 +3,7 @@ public class Solo extends Artist {
     boolean dressingRoom;
     int managerNum;
 
-    public Solo(String name, String genre, boolean headliner,  int capacity, int duration, double price,boolean confirmedAtt,boolean dressingRoom, int managerNum) {
+    public Solo(String name, String genre, boolean headliner,  int capacity, int duration, double price,boolean confirmedAtt, boolean dressingRoom, int managerNum) {
             super(name, genre, headliner, capacity, duration, price, confirmedAtt);
             this.dressingRoom = dressingRoom;
             this.managerNum = managerNum;
@@ -25,7 +25,11 @@ public class Solo extends Artist {
     public void setDressingRoom(boolean dressingRoom) {
         this.dressingRoom = dressingRoom;
     }
-    
+
+    public boolean getSellMerch(){
+        return false; //THIS SHOULD NEVER HAPPEN!!
+    }
+
     @Override
     public String toString() {
         

@@ -1,10 +1,10 @@
 public class Tickets {
     int id;
-    double prevAttDiscount, vipDiscount;
     Artist forWho;
+
     public Tickets(int id, Artist art){
         this.id = id;
-        forWho = art;
+        this.forWho = art;
     }
 
     public int getId(){
