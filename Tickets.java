@@ -1,10 +1,10 @@
 public class Tickets {
     int id;
     double prevAttDiscount, vipDiscount;
-    Artist[] listArtists;
-    public Tickets(int id, Artist[] ltArt){
+    Artist forWho;
+    public Tickets(int id, Artist art){
         this.id = id;
-        listArtists = ltArt;
+        forWho = art;
     }
 
     public int getId(){
@@ -15,16 +15,16 @@ public class Tickets {
         this.id = id;
     }
     
-    public Artist[] getListArtist(){
-        return listArtists;
+    public Artist getforWho(){
+        return forWho;
     }
 
-    public void setListArtist(Artist[] lArtists){
-        listArtists = lArtists;
+    public void setforWho(Artist art){
+        forWho = art;
     }
 
     public String toString(){
-        String str = "ID: " + id + "Artist info: "; // + Artist.toString();
+        String str = "ID: " + id + "Artist info: " + forWho.toString();
         return str;
     }
 

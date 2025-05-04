@@ -155,7 +155,7 @@ public class Main {
         int b = 0;
 
         for (int i = 0; i < art.length; i++) {
-            if (art[i].getName().equalsIgnoreCase(arts)){ //TODO: YOU CAN ONLY BUT TICKETS FOR CONFIRMED ARTISTS!!!
+            if (art[i].getName().equalsIgnoreCase(arts)){
                 if(art[i].getConfirmedAtt()){
                     artsExist = true;
                     b = i;
@@ -174,8 +174,9 @@ public class Main {
             for (int i = 0; i < iConstants.TICKETS; i++) {
                 if (!ticketBought && att[c].ticketList[i] == null){
                     //Llamar aquí al precio
-                    att[c].ticketList[i] = new Tickets(23, art); //CAMBIAR ESE 23!!
-                    System.out.println("Ticket bought! enjoy the Festival!");
+                    att[c].ticketList[i] = new Tickets(23, art[b]); //CAMBIAR ESE 23!!
+                    System.out.println();
+                    System.out.println("Ticket bought for " + art[b].getName() + " ! enjoy the Festival!");
                     ticketBought = true;  
 
                 } else if (!ticketBought && i == iConstants.TICKETS - 1){
@@ -219,14 +220,16 @@ public class Main {
 
         //Query 7
         //Un for que recorra artistas y un if para ser vip y que tenga mercha ese grupo
-        for (int i = 0; i < art.length ; i++) {
-            for (int j = 0; j < att.length; j++) {
-                if (att[j] instanceof VIPAttendees && art[i] instanceof Group && art[i].getSellMerch() == true) {
-                    System.out.println(art[i].toString());
+
+        for (int i = 0; i < att.length; i++) {
+                for (int j = 0; j < att[i].ticketList.length; j++){
+                    if (att[i] instanceof VIPAttendees && att[i].ticketList[j] != null){
+                        if(att[i].ticketList[j].forWho.getSellMerch()){
+                            att[i].ticketList[j].forWho.toString();
+                        }
+                    }
                 }
-            }
         }
     }
 }
         
-//}
