@@ -4,7 +4,7 @@ public class Festival {
     Artist[] artistList;
     Attendee[] atendeeList;
     SecurityCompany sec;
-
+    
     public Festival(String n, String c, Artist[] arList, Attendee[] attList){
         this.name = n;
         this.city = c;
@@ -55,8 +55,14 @@ public class Festival {
         return str;
     }
 
+    public String showAllArtistInfo(Artist[] art){
+        String str = "";
+        for (int i = 0; i < art.length; i++) {
+            str += (art[i].toString() + "\n"); 
+        }
+        return str;
+    }
 
-	
     public double calculateSecurityCost(Artist[] art, SecurityCompany sec){
         int assistance = 0;
         int numSec = 0;
@@ -77,38 +83,98 @@ public class Festival {
         return price;
     }
 
+    public boolean checkRegistedAttendee(String attId, Attendee[] att){
+        double priceTicket = 0;
+        boolean nameReal = false;
 
-    /*
-    public double calculateSecurity(SecurityCompany secComp, int attendance, int numMerch, int numSoloistDressroom){
-        
-        // We pass the class Security Company, where we find how much they charge per security person, as well as how many people attend, 
-        // how many merchandise stands there are and how many dressing rooms soloist have.
-
-        // As it's specified, we know that there's a security member every 500 Attendee, two for every merchandise stand and one for every dressing rooms. 
-        // attendance, numMerch and numSoloistDressroom needs to be passed after reading txt files. 
-
-        
-
-        int numSecurity = (attendance/500) + 2*numMerch + numSoloistDressroom;
-        return numSecurity * secComp.getCharge();
-
+        for (int i = 0; i < att.length; i++) {
+            if (attId.equalsIgnoreCase(att[i].getId())){
+                nameReal = true;
+            }
+        }
+        return nameReal;
     }
 
-    //public int CheckPrice(Tickets ticket){
-    //int price;
-    //return price;
-    //}
-    
-    public String checkTicketInfo(Tickets ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
-        String info = ticket.toString();
-        return info;
-    } */
-}    
+    public boolean checkRealArtist(String wantToAttend, Artist[] art){
+        boolean nameReal = false;
 
-// Show all info regarding artist - Query 1
-// Calculate cost - Done - Query 2
-// Calculate ticket price - Query 3
-// Query 4
-// Query 5 
-// Query 6
-// Query 7 
+        for (int i = 0; i < art.length; i++) {
+            if (wantToAttend.equalsIgnoreCase(art[i].getName())){
+                nameReal = true;
+            }
+        }
+        return nameReal;
+    }
+
+
+    public double calcPrice(Attendee[] att, Artist[] art, String artName, String attId){
+        double priceArt = 0;
+       for (int i = 0; i < att.length; i++) {
+            if (att[i].getId().equalsIgnoreCase(attId)) {
+                for (int j = 0; j < art.length; j++) {
+                    if (art[j].getName().equalsIgnoreCase(artName)) {
+                        priceArt = art[j].getPrice();
+                        if (att[i].getPrevAtt() == true) {
+                            priceArt = priceArt - (priceArt * iConstants.TICKETPREVATTENDEDISCOUNT);
+                            if (att[i] instanceof VIPAttendee) {
+                                priceArt = priceArt - (priceArt* iConstants.TICKETVIP);
+                            }
+                        }
+                        else if (att[i] instanceof VIPAttendee) {
+                            priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
+                            
+                        }
+                    }
+                }
+            }
+        } 
+        return priceArt;
+    }
+
+    public double estimateMoney(Artist[] art){
+        double expectedSpent = 0;
+        for (int i = 0; i < art.length; i++) {
+            if (art[i].getConfirmedAtt()){
+                expectedSpent += art[i].getPrice();
+            } else if (art[i] instanceof Group && art[i].getSellMerch()){
+                expectedSpent += iConstants.TSHIRTPRICE;
+            }
+        }
+        return expectedSpent;
+    }
+
+    public String showInfoTickets(String attId, Attendee[] att){
+        int pos = 0; 
+        String str = "";
+
+        for (int i = 0; i < att.length; i++) {
+            if (att[i].getId().equals(attId)){
+                pos = i;
+            }
+        }
+        for(int i = 0; i < att[pos].ticketList.length; i++){
+            if (att[pos].ticketList[i] != null) {
+                str += (att[pos].ticketList[i].toString());
+            }
+        }
+        return str;
+    }
+
+    public String showInfoConcerts(Attendee[] att){
+        //Un for que recorra artistas y un if para ser vip y que tenga mercha ese grupo
+        String str = "";
+
+        for (int i = 0; i < att.length; i++) {
+            for (int j = 0; j < att[i].ticketList.length; j++){
+                if (att[i] instanceof VIPAttendee && att[i].ticketList[j] != null ){
+                    if(att[i].ticketList[j].forWho.getSellMerch()){
+                        str += att[i].ticketList[j].forWho.toString();
+                    }
+                }
+            }
+        }
+        return str;
+    }
+
+
+}    
