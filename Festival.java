@@ -176,5 +176,15 @@ public class Festival {
         return str;
     }
 
+    public static int attPosition(Attendee[] att, String attId){
+        int c = 0;
+        for (int i = 0; i < att.length; i++) {
+            if (att[i].getId().equalsIgnoreCase(attId)){
+                c = i;
+            }
+        } 
+        return c;
+    }
+
 
 }    

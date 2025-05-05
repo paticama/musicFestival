@@ -29,123 +29,6 @@ public class Main {
         
     }
 
-
-
-
-
-
-
-
-
-    /*
-
-    private static final Scanner INPUT = new Scanner(System.in);
-    public static void main(String[] args) throws IOException {
-
-
-        //Query 1
-
-
-        //Query 2
-
-
-        //Query 3
-       
-
-    
-        //Query 4
-
-
-
-        //Query 5 MODULARIZAR ESTO POR FAVOR
-        //Preguntar a Aurora si es necesario que se guarden los no registrados
-        String name, id, crednum;
-        boolean prevAtt, vip;
-        int numtick = 7, vipnum; //max tickets
-        System.out.println("Tell me the ID");
-        attId = INPUT.next();
-        boolean preexAtt = false;
-        int c = 0;
-        for (int i = 0; i < att.length; i++) {
-            if (att[i].getId().equals(attId)){
-                preexAtt = true;
-                c = i;
-            }
-        }     //From here to the end of if, I'd make a "create attendee" method
-        if (preexAtt == false) {
-            System.out.println("We need your some more information, please give us the next data: ");
-            System.out.println("name: ");
-            name = INPUT.next();
-            //No need to ask again!
-            id = attId;
-            System.out.println("Credit card number: ");
-            crednum = INPUT.next();
-            
-            System.out.println("Have you assisted previously? (true or false)");
-            
-            while (!INPUT.hasNextBoolean()) {
-                System.out.println("Try again please");
-                INPUT.next();
-            }
-            prevAtt = INPUT.nextBoolean();
-
-            System.out.println("Are you VIP? (true or false)");
-
-            while (!INPUT.hasNextBoolean()) {
-                System.out.println("Try again please");
-                INPUT.next();
-            }
-            vip = INPUT.nextBoolean();
-
-            if (vip == true) {
-                System.out.println("Tell me your vip number: ");
-                vipnum = INPUT.nextInt();
-                VIPAttendees newatt = new VIPAttendees(name, id, crednum,vipnum, prevAtt, vip);
-            }
-            else{
-                Attendees newatt = new Attendees(name, id, crednum, prevAtt, vip);
-            }
-            //FALTA COMPRARLE LOS TICKETS!!!
-            
-        }
-
-        System.out.println("Alright, now, what Artist do you want to buy tickets for?");
-        String arts = INPUT.next();
-        boolean artsExist = false;
-        int b = 0;
-
-        for (int i = 0; i < art.length; i++) {
-            if (art[i].getName().equalsIgnoreCase(arts)){
-                if(art[i].getConfirmedAtt()){
-                    artsExist = true;
-                    b = i;
-                } else {
-                    System.out.println("You can only buy confirmed artists tickets!");
-                }
-
-            }
-            else if (i == art.length && !artsExist) {
-                System.out.println("It seems something went wrong, we cannot find that artist, try again!");
-            }
-        } 
-        if(artsExist){ // it does not matter what b is if arts don't exist
-            boolean ticketBought = false;
-
-            for (int i = 0; i < iConstants.TICKETS; i++) {
-                if (!ticketBought && att[c].ticketList[i] == null){
-                    //Llamar aquí al precio
-                    att[c].ticketList[i] = new Tickets(23, art[b]); //CAMBIAR ESE 23!!
-                    System.out.println();
-                    System.out.println("Ticket bought for " + art[b].getName() + " ! enjoy the Festival!");
-                    ticketBought = true;  
-
-                } else if (!ticketBought && i == iConstants.TICKETS - 1){
-                    System.out.println("It looks like you have already bought 7 tickets!!");
-                }
-            }
-        }
-    } */
-
         
     public static Attendee[] readAttendee(String file) throws IOException {
 		//We read from a file and create a list of attendees with the given info
@@ -245,6 +128,48 @@ public class Main {
 		return art;
     } 
 
+    public static Attendee createNewAtt(String id){
+        String name, crednum;
+        boolean prevAtt, vip;
+        int vipnum; //max tickets
+        Attendee newAtt;
+
+        System.out.println("We need your some more information, please give us the next data: ");
+        System.out.println("name: ");
+        name = INPUT.next();
+        //No need to ask again for id!
+        System.out.println("Credit card number: ");
+        crednum = INPUT.next();
+        
+        System.out.println("Have you assisted previously? (true or false)");
+        
+        while (!INPUT.hasNextBoolean()) {
+            System.out.println("Try again please");
+            INPUT.next();
+        }
+        prevAtt = INPUT.nextBoolean();
+
+        System.out.println("Are you VIP? (true or false)");
+
+        while (!INPUT.hasNextBoolean()) {
+            System.out.println("Try again please");
+            INPUT.next();
+        }
+        vip = INPUT.nextBoolean();
+
+        if (vip == true) {
+            System.out.println("Tell me your vip number: ");
+            vipnum = INPUT.nextInt();
+            newAtt = new VIPAttendee(name, id, crednum,vipnum, prevAtt, vip);
+        }
+        else{
+            newAtt = new Attendee(name, id, crednum, prevAtt, vip);
+        }
+
+        return newAtt;
+
+    }
+
     public static void ShowMenu(Festival ourFestival){
         boolean finished = false;
         String attID;
@@ -290,6 +215,31 @@ public class Main {
                     System.out.println("It would cost: " + ourFestival.estimateMoney(ourFestival.getArtList()) + " euros");
                     break;
                 case 5:
+                Attendee att;
+                System.out.println("Please, introduce your ID: ");
+                attID = INPUT.next();
+                if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttenList())){
+                    int pos = Festival.attPosition(ourFestival.getAttenList(), attID);
+                    att = ourFestival.getAttenList()[pos];
+                } else {
+                    System.out.println("It seems you are not registered, so we will need some information");
+                    att = createNewAtt(attID);
+                }
+
+                System.out.println("Alright, now, what Artist do you want to buy tickets for?");
+                String arts = INPUT.next();
+                if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
+                    int artPos = ourFestival.artPosition(ourFestival.getArtList(), arts);
+                    Artist art = ourFestival.getArtList()[artPos];
+                    if(ourFestival.buyTickets(att, art)){
+                        System.out.println("Ticket bought for " + arts + ". Thanks!");
+                    }
+                    else {
+                        System.out.println("It looks like something went wrong, you have already acquired 7 tickets. ");
+                    }
+                } else {
+                    System.out.println("Something went wrong. That artist is not in our database");
+                }
                     break;
                 case 6:
                     System.out.println("Please, introduce your ID: ");
