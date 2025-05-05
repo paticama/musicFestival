@@ -186,5 +186,27 @@ public class Festival {
         return c;
     }
 
+    public static int artPosition(Artist[] art, String name){
+        int c = 0;
+        for (int i = 0; i < art.length; i++) {
+            if (art[i].getName().equalsIgnoreCase(name)){
+                c = i;
+            }
+        } 
+        return c;
+    }
+
+    public boolean buyTickets(Attendee att, Artist art){
+        boolean ticketBought = false;
+
+        for (int i = 0; i < iConstants.TICKETS; i++) {
+            if (!ticketBought && att.ticketList[i] == null){
+                //Llamar aquí al precio
+                att.ticketList[i] = new Tickets(23, art); //CAMBIAR ESE 23!!
+                ticketBought = true;  
+            } 
+        }
+        return  ticketBought;
+    }
 
 }    
