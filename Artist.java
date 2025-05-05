@@ -63,9 +63,10 @@ public abstract class Artist {
         this.price = price;
     }
     public String toString(){
-        String str = "name: " + name + " genre: " + genre + " headliner: " + 
-        headliner + " confirmed assistance: " + confirmedAtt + " capacity: " + 
-        capacity + " duration: " + duration + " price: " + price;
+        String str = "Name: " + name + " Genre: " + genre + " Is a headliner?: " + 
+        headliner + " Has confirmed assistance: " + confirmedAtt + 
+        " Capacity for the concert: " + capacity + " Duration of the concert: " +
+        duration + " Price: " + price;
         return (str);
     }
 }

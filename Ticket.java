@@ -1,4 +1,4 @@
-public class Ticket {
+public class Ticket{
     int id;
     Artist forWho;
 
@@ -24,7 +24,7 @@ public class Ticket {
     }
 
     public String toString(){
-        String str = "ID: " + id + "Artist info: " + forWho.toString();
+        String str = "Ticket ID: " + id + "Artist info: " + forWho.toString();
         return str;
     }
 

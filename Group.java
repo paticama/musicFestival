@@ -37,10 +37,8 @@ public class Group extends Artist {
 
     @Override
     public String toString() {
-        return ("Name: " + name + " genre: " + genre + " headliner: " + headliner +
-        " confirmed assistance: " + confirmedAtt + " capacity: " + capacity + " duration: " + 
-        duration + " price: " + price + " how many in the group: " + memberNum +
-        " Do they sell merchandising?: " + sellMerch);
+        return (super.toString() + " How many members are there in the group?: " +
+         memberNum +" Do they sell merchandising?: " + sellMerch);
     }
 
     

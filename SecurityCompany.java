@@ -26,7 +26,7 @@ public class SecurityCompany {
     }
     //the method toString to put every value as a string for printing later
     public String toString(){
-        return "charge: " + charge + " name: " + name;
+        return "Name: " + name + " How much do they charge?: " + charge;
     }
     //we do not put here the method calculateCharge because it is in the class festival)
     

@@ -17,11 +17,11 @@ public class Main {
         System.out.println("Welcome to our festival management system!");
         System.out.println("IMPORTANT!! Do not use spaces, instead use underscores!!");
 
-        System.out.println("Please, indicate the festival name: ");
-        festName = "ViñaRock"; //INPUT.next();
+        System.out.print("Please, indicate the festival name: ");
+        festName = INPUT.next();
 
-        System.out.println("Thanks, now please indicate the city the festival will be held on: ");
-        festCity = "Viñarrobledo"; //INPUT.next(); //TODO: VOLVER A PONER INPUT.NEXT!!
+        System.out.print("Thanks, now please indicate the city the festival will be held on: ");
+        festCity = INPUT.next(); 
 
         Festival ourFestival = new Festival(festName, festCity, artList, attList);
 
@@ -131,7 +131,7 @@ public class Main {
     public static Attendee createNewAtt(String id){
         String name, crednum;
         boolean prevAtt, vip;
-        int vipnum; //max tickets
+        int vipnum; 
         Attendee newAtt;
 
         System.out.println("We need your some more information, please give us the next data: ");
@@ -190,7 +190,6 @@ public class Main {
                 case 1:
                     System.out.println("Here is all the information about our artists");
                     System.out.println(ourFestival.showAllArtistInfo(ourFestival.artistList));
-
                     break;
                 case 2:
                     SecurityCompany secComp = new SecurityCompany("EventoSeguroSL", 250); //It has been written here and not asked since it is in the Problem Description
@@ -231,7 +230,7 @@ public class Main {
                 if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
                     int artPos = ourFestival.artPosition(ourFestival.getArtList(), arts);
                     Artist art = ourFestival.getArtList()[artPos];
-                    if(ourFestival.buyTickets(att, art)){
+                    if(ourFestival.buyTicket(att, art)){
                         System.out.println("Ticket bought for " + arts + ". Thanks!");
                     }
                     else {
@@ -245,7 +244,7 @@ public class Main {
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
                     if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttenList())){
-                        System.out.println(ourFestival.showInfoTickets(attID, ourFestival.getAttenList()));
+                        System.out.println(ourFestival.showInfoTicket(attID, ourFestival.getAttenList()));
                     } else {
                         System.out.println("Something went wrong. That attendee is not in our database. ");
                     }

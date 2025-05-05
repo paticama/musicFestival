@@ -16,28 +16,28 @@ public class Festival {
         return name;
     }
     public void setName(String name){
-        name = this.name;
+        this.name = name;
     }
 
     public String getCity(){
         return city;
     }
     public void setCity(String c){
-        city = c;
+        this.city = c;
     }
 
     public Artist[] getArtList(){
         return artistList;
     }
     public void setArtList(Artist[] arList){
-        artistList = arList;
+        this.artistList = arList;
     }
 
     public Attendee[] getAttenList(){
         return atendeeList;
     }
     public void setAttenList(Attendee[] atList){
-        atendeeList = atList;
+        this.atendeeList = atList;
     }
 
     public String toString(){
@@ -84,7 +84,6 @@ public class Festival {
     }
 
     public boolean checkRegistedAttendee(String attId, Attendee[] att){
-        double priceTicket = 0;
         boolean nameReal = false;
 
         for (int i = 0; i < att.length; i++) {
@@ -143,7 +142,7 @@ public class Festival {
         return expectedSpent;
     }
 
-    public String showInfoTickets(String attId, Attendee[] att){
+    public String showInfoTicket(String attId, Attendee[] att){
         int pos = 0; 
         String str = "";
 
@@ -196,13 +195,13 @@ public class Festival {
         return c;
     }
 
-    public boolean buyTickets(Attendee att, Artist art){
+    public boolean buyTicket(Attendee att, Artist art){
         boolean ticketBought = false;
 
         for (int i = 0; i < iConstants.TICKETS; i++) {
             if (!ticketBought && att.ticketList[i] == null){
                 //Llamar aquí al precio
-                att.ticketList[i] = new Ticket(23, art); //CAMBIAR ESE 23!!
+                att.ticketList[i] = new Ticket(23, art); //CAMBIAR ESE 23!! TODO: PREGUNTAR QUÉ ID ASIGNAR (num aleatorio?, un método que lleve la cuenta de todos los tickets comprados?)
                 ticketBought = true;  
             } 
         }
