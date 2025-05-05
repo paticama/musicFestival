@@ -202,7 +202,7 @@ public class Festival {
         for (int i = 0; i < iConstants.TICKETS; i++) {
             if (!ticketBought && att.ticketList[i] == null){
                 //Llamar aquí al precio
-                att.ticketList[i] = new Tickets(23, art); //CAMBIAR ESE 23!!
+                att.ticketList[i] = new Ticket(23, art); //CAMBIAR ESE 23!!
                 ticketBought = true;  
             } 
         }

@@ -2,7 +2,7 @@ public class Attendee{
     String name, id, creditNum; 
     boolean prevAtt, isVIP;
     
-    Tickets[] ticketList = new Tickets[iConstants.TICKETS - 1];
+    Ticket[] ticketList = new Ticket[iConstants.TICKETS - 1];
 
     public Attendee(String n, String i, String cred, boolean prev, boolean vip){
         this.name = n;
@@ -44,11 +44,11 @@ public class Attendee{
         return prevAtt;
     }
 
-    public void setTicketList(Tickets[] ticklst){
+    public void setTicketList(Ticket[] ticklst){
         ticketList = ticklst;
     }
 
-    public Tickets[] getTicketList(){
+    public Ticket[] getTicketList(){
         return ticketList;
     }
 
@@ -74,7 +74,7 @@ public class Attendee{
         //return price;
     //}
     
-    public String checkTicketInfo(Tickets ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
+    public String checkTicketInfo(Ticket ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
         String info = ticket.toString();
         return info;
     }
