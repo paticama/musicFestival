@@ -9,30 +9,20 @@ public class Solo extends Artist {
             this.managerNum = managerNum;
     }
 
-    
     public boolean hasStand() {
         return false;
     }
-    public int getManagerNum() {
-        return managerNum;
-    }
-    public void setManagerNum(int managerNum) {
-        this.managerNum = managerNum;
-    }
+
     public boolean getDressingRoom(){
         return dressingRoom;
     }
-    public void setDressingRoom(boolean dressingRoom) {
-        this.dressingRoom = dressingRoom;
-    }
 
     public boolean getSellMerch(){
-        return false; //THIS SHOULD NEVER HAPPEN!!
+        return false; 
     }
 
     @Override
     public String toString() {
-        
         return (super.toString() + "Do they need a dressing room?: " + dressingRoom + " Manager phone number: " + managerNum);
     }
 }

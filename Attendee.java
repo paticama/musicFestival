@@ -12,40 +12,12 @@ public class Attendee{
         this.prevAtt = prev;
     }
 
-    public void setName(String n){
-        this.name = n;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setId(String i){
-        this.id = i;
-    }
-
     public String getId(){
         return id;
     }
 
-    public void setCredNum(String cred){
-        this.creditNum = cred;
-    }
-
-    public String getCredNum(){
-        return creditNum;
-    }
-
-    public void setPrevAtt(boolean prev){
-        this.prevAtt = prev;
-    }
-
     public boolean getPrevAtt(){
         return prevAtt;
-    }
-
-    public void setTicketList(Ticket[] ticklst){
-        this.ticketList = ticklst;
     }
 
     public Ticket[] getTicketList(){
@@ -55,7 +27,8 @@ public class Attendee{
     @Override
     public String toString(){
         String str = "Name: " + name + " ID: " + id + " Credit card number: " +
-        creditNum + " Has previously attended?: " + prevAtt;
+        creditNum + " Has previously attended?: " + prevAtt + 
+        "Is a VIP Attendee?: " + isVIP;
         return str;
     }  
 }

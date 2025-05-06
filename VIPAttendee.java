@@ -6,18 +6,8 @@ public class VIPAttendee extends Attendee {
         VIPNum = vipNum;
     }
 
-    public void setVipNum(int vipNum){
-        VIPNum = vipNum;
-    }
-
-    public int getVipNum(){
-        return VIPNum;
-    }
-    
     public String toString(){
         String str = super.toString() + "VIP number: " + VIPNum;
         return str;
     }
-
-    //TODO: Show info. of the concerts with merchandising stands for which a VIP has purchased tickets  
 }

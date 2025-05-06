@@ -9,37 +9,17 @@ public class Group extends Artist {
             this.memberNum = memberNum;
         }
     
-    public int getMemberNum(){
-        return memberNum;
-    }
-    public void setMemberNum(int memberNum){
-        this.memberNum= memberNum;
-    }
-
     public boolean getSellMerch(){
         return sellMerch;
     }
-    public void setSellMerch(boolean sellMerch) {
-        this.sellMerch = sellMerch;
-    }
-    public boolean hasStand() {
-        if (sellMerch == true) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     public boolean getDressingRoom(){
-        return false; //THIS SHOULD NEVER HAPPEN!!
+        return false; 
     }
 
     @Override
     public String toString() {
         return (super.toString() + " How many members are there in the group?: " +
          memberNum +" Do they sell merchandising?: " + sellMerch);
-    }
-
-    
+    } 
 }

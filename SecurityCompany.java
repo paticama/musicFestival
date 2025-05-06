@@ -8,26 +8,9 @@ public class SecurityCompany {
         this.name = name;
         this.charge = charge;
     }
-    //setter of charge
-    public void setCharge(double charge){
-        this.charge = charge;
-    }
-    //getter of chargew
+
+    //getter of charge
     public double getCharge() {
         return charge;
     }
-    //setter of name
-    public void setName(String name) {
-        this.name = name;
-    }
-    //getter of name
-    public String getName() {
-        return name;
-    }
-    //the method toString to put every value as a string for printing later
-    public String toString(){
-        return "Name: " + name + " How much do they charge?: " + charge;
-    }
-    //we do not put here the method calculateCharge because it is in the class festival)
-    
 }

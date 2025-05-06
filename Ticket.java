@@ -10,19 +10,7 @@ public class Ticket{
     public int getId(){
         return id;
     }
-
-    public void setId(int id){
-        this.id = id;
-    }
-    
-    public Artist getforWho(){
-        return forWho;
-    }
-
-    public void setforWho(Artist art){
-        forWho = art;
-    }
-
+ 
     public String toString(){
         String str = "Ticket ID: " + id + "Artist info: " + forWho.toString();
         return str;

@@ -5,31 +5,30 @@ import java.util.*;
 public class Main {
     static final Scanner INPUT = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException,FileNotFoundException {
+        try {
+            Artist[] artList = readArtist("Artistas.txt");
+            Attendee[] attList = readAttendee("Asistentes.txt");
+            
+            String festName, festCity;
 
-        Artist[] artList = readArtist("Artistas.txt");
-        Attendee[] attList = readAttendee("Asistentes.txt");
+            System.out.println("Welcome to our festival management system!");
+            System.out.println("IMPORTANT!! Do not use spaces, instead use underscores!!");
 
-        Scanner INPUT = new Scanner(System.in);
+            System.out.print("Please, indicate the festival name: ");
+            festName = INPUT.next();
 
-        String festName, festCity;
+            System.out.print("Thanks, now please indicate the city the festival will be held on: ");
+            festCity = INPUT.next(); 
 
-        System.out.println("Welcome to our festival management system!");
-        System.out.println("IMPORTANT!! Do not use spaces, instead use underscores!!");
+            Festival ourFestival = new Festival(festName, festCity, artList, attList);
 
-        System.out.print("Please, indicate the festival name: ");
-        festName = INPUT.next();
-
-        System.out.print("Thanks, now please indicate the city the festival will be held on: ");
-        festCity = INPUT.next(); 
-
-        Festival ourFestival = new Festival(festName, festCity, artList, attList);
-
-        ShowMenu(ourFestival);
-        
+            ShowMenu(ourFestival);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, can't read artist file for the festival, ending program");
+        }
     }
 
-        
     public static Attendee[] readAttendee(String file) throws IOException {
 		//We read from a file and create a list of attendees with the given info
 		File f = new File(file);
@@ -130,7 +129,7 @@ public class Main {
 
     public static Attendee createNewAtt(String id){
         String name, crednum;
-        boolean prevAtt, vip;
+        boolean prevAtt, vip, isNum;
         int vipnum; 
         Attendee newAtt;
 
@@ -158,8 +157,11 @@ public class Main {
         vip = INPUT.nextBoolean();
 
         if (vip == true) {
-            System.out.println("Tell me your vip number: ");
-            vipnum = INPUT.nextInt();
+            do {
+                System.out.println("Tell me your vip number: ");
+                vipnum = INPUT.nextInt();
+                isNum = misException(vipnum);
+            } while (isNum = false);
             newAtt = new VIPAttendee(name, id, crednum,vipnum, prevAtt, vip);
         }
         else{
@@ -170,65 +172,57 @@ public class Main {
 
     }
 
-    public static void ShowMenu(Festival ourFestival){
-        boolean finished = false;
-        String attID;
-        do { 
-            System.out.println("Choose one of the following options: ");
-            System.out.println("1. Show the information of all scheduled artists.");
-            System.out.println("2. Calculate how much the festival's security service would cost.");
-            System.out.println("3. Calculate the cost of a ticket. Only for registered attendees!!");
-            System.out.println("4. Estimate the cost of attending to all headliners and buying a t-shirt in all merchandising stands.");
-            System.out.println("5. Purchase a ticket. Only for confirmed artists!!");
-            System.out.println("6. Show all ticket information someone has purchased.");
-            System.out.println("7. Show the information of concerts with merchandising for which a VIP has purchased tickets.");
-            System.out.println("8. Exit the system");
+    public static void printMenu(){ //Is this even correct?
+        System.out.println("Choose one of the following options: ");
+        System.out.println("1. Show the information of all scheduled artists.");
+        System.out.println("2. Calculate how much the festival's security service would cost.");
+        System.out.println("3. Calculate the cost of a ticket. Only for registered attendees!!");
+        System.out.println("4. Estimate the cost of attending to all headliners and buying a t-shirt in all merchandising stands.");
+        System.out.println("5. Purchase a ticket. Only for confirmed artists!!");
+        System.out.println("6. Show all ticket information someone has purchased.");
+        System.out.println("7. Show the information of concerts with merchandising for which a VIP has purchased tickets.");
+        System.out.println("8. Exit the system");
+    }
 
-            int option = INPUT.nextInt();
+    public static void query3(Festival ourFestival){
+        System.out.println("Please, introduce your ID: ");
+        String attID = INPUT.next();
+        if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
+            System.out.println("Alright. Which concert do you want to attend to?: ");
+            String wantToAttend = INPUT.next();
+            if(ourFestival.checkRealArtist(wantToAttend, ourFestival.getArtList())){
+                System.out.println(ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), wantToAttend, attID));
+                //double[] listPrice = ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), wantToAttend, attID);
+                //System.out.println("Tickets were originally: " + listPrice[2] +
+                //" after a discount of: " + listPrice[1] + "%, the final price is: " + listPrice[0] + " euros.");
+            } else {
+                System.out.println("Something went wrong. That artist is not in our database");
+            }
+        } else {
+            System.out.println("Something went wrong. That attendee is not in our database. ");
+        }
+    }
 
-            switch(option){
-                case 1:
-                    System.out.println("Here is all the information about our artists");
-                    System.out.println(ourFestival.showAllArtistInfo(ourFestival.artistList));
-                    break;
-                case 2:
-                    SecurityCompany secComp = new SecurityCompany("EventoSeguroSL", 250); //It has been written here and not asked since it is in the Problem Description
-                    System.out.println("It would cost "+ ourFestival.calculateSecurityCost(ourFestival.artistList, secComp) + " euros");
-                    break;
-                case 3:
-                    System.out.println("Please, introduce your ID: ");
-                    attID = INPUT.next();
-                    if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttenList())){
-                        System.out.println("Alright. Which concert do you want to attend to?: ");
-                        String wantToAttend = INPUT.next();
-                        if(ourFestival.checkRealArtist(wantToAttend, ourFestival.getArtList())){
-                            System.out.println("It would cost: " + ourFestival.calcPrice(ourFestival.getAttenList(), ourFestival.getArtList(), wantToAttend, attID) + " euros");
-                        } else {
-                            System.out.println("Something went wrong. That artist is not in our database");
-                        }
-                    } else {
-                        System.out.println("Something went wrong. That attendee is not in our database. ");
-                    }
-                    break;
-                case 4:
-                    System.out.println("It would cost: " + ourFestival.estimateMoney(ourFestival.getArtList()) + " euros");
-                    break;
-                case 5:
-                Attendee att;
-                System.out.println("Please, introduce your ID: ");
-                attID = INPUT.next();
-                if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttenList())){
-                    int pos = Festival.attPosition(ourFestival.getAttenList(), attID);
-                    att = ourFestival.getAttenList()[pos];
-                } else {
-                    System.out.println("It seems you are not registered, so we will need some information");
-                    att = createNewAtt(attID);
-                }
-
-                System.out.println("Alright, now, what Artist do you want to buy tickets for?");
+    public static  void query5(Festival ourFestival){
+        //If additional info on what this does is needed, please ask.
+        Attendee att;
+        System.out.println("Please, introduce your ID: ");
+        String attID = INPUT.next();
+        if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
+            int pos = Festival.attPosition(ourFestival.getAttendeeList(), attID);
+            att = ourFestival.getAttendeeList()[pos];
+        } else {
+            System.out.println("It seems you are not registered, so we will need some information");
+            att = createNewAtt(attID);
+        }
+        System.out.println("How many tickets do you want to buy?: ");
+        int numtickets = INPUT.nextInt();
+        if(numtickets > 0 && numtickets < iConstants.TICKETS){
+            for(int i=0; i < numtickets; i++){
+                System.out.println("What Artist do you want to buy tickets for?");
                 String arts = INPUT.next();
                 if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
-                    int artPos = ourFestival.artPosition(ourFestival.getArtList(), arts);
+                    int artPos = Festival.artPosition(ourFestival.getArtList(), arts);
                     Artist art = ourFestival.getArtList()[artPos];
                     if(ourFestival.buyTicket(att, art)){
                         System.out.println("Ticket bought for " + arts + ". Thanks!");
@@ -239,18 +233,52 @@ public class Main {
                 } else {
                     System.out.println("Something went wrong. That artist is not in our database");
                 }
+            }
+        } else {
+            System.out.println("Invalid number of tickets. Remember you have a maximum of 7 and a minimum of 1 ticket when buying!");
+        }
+    }
+
+
+    public static void ShowMenu(Festival ourFestival){
+        boolean finished = false;
+        String attID;
+        do {
+            printMenu();
+            int option = INPUT.nextInt();
+            switch(option){
+                //Some cases are left unmodularized. A two-sentence method looks a bit weird
+                case 1:
+                    System.out.println("Here is all the information about our artists");
+                    System.out.println(ourFestival.showAllArtistInfo(ourFestival.artistList));
                     break;
-                case 6:
+                case 2:
+                    SecurityCompany secComp = new SecurityCompany("EventoSeguroSL", 250); //It has been written here and not asked since it is in the Problem Description
+                    System.out.println("It would cost "+ ourFestival.calculateSecurityCost(ourFestival.artistList, secComp) + " euros");
+                    break;
+                case 3:
+                    query3(ourFestival);
+                    break;
+                case 4:
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
-                    if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttenList())){
-                        System.out.println(ourFestival.showInfoTicket(attID, ourFestival.getAttenList()));
+                    System.out.println("It would cost: " + ourFestival.estimateMoney(ourFestival.getArtList(), attID) + " euros");
+                    break;
+                case 5:
+                    query5(ourFestival);
+                    break;
+                case 6:
+                    //Should I modularize this? I think it looks OK tbh
+                    System.out.println("Please, introduce your ID: ");
+                    attID = INPUT.next();
+                    if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
+                        System.out.println(ourFestival.showInfoTicket(attID, ourFestival.getAttendeeList()));
                     } else {
                         System.out.println("Something went wrong. That attendee is not in our database. ");
                     }
                         break;
                 case 7:
-                    System.out.println(ourFestival.showInfoConcerts(ourFestival.getAttenList()));
+                    System.out.println(ourFestival.showInfoConcerts(ourFestival.getAttendeeList()));
                     break;
                 case 8:
                     System.out.println("Thanks for using our management system. We hope you enjoy the festival!");
@@ -261,5 +289,15 @@ public class Main {
                     break;
             }
         } while (!finished);
+    }
+    public static boolean misException(int t){
+        boolean isNumber;
+            try {
+                isNumber = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Not a number, please try again");
+                isNumber = false;
+            }
+        return isNumber;
     }
 }

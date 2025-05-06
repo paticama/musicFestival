@@ -12,47 +12,12 @@ public class Festival {
         this.atendeeList = attList;
     }
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getCity(){
-        return city;
-    }
-    public void setCity(String c){
-        this.city = c;
-    }
-
     public Artist[] getArtList(){
         return artistList;
     }
-    public void setArtList(Artist[] arList){
-        this.artistList = arList;
-    }
 
-    public Attendee[] getAttenList(){
+    public Attendee[] getAttendeeList(){
         return atendeeList;
-    }
-    public void setAttenList(Attendee[] atList){
-        this.atendeeList = atList;
-    }
-
-    public String toString(){
-        String str = "Name: " + name + " City: " + city + " Artists: " ;
-        for (int i = 0; i < artistList.length; i++) {
-           str +=  artistList.toString();
-           str += "\n";
-        }
-        str +=  " Attendee: ";
-        for (int i = 0; i < atendeeList.length; i++) {
-            str +=  atendeeList.toString();
-            str += "\n";
-         }
-        
-        return str;
     }
 
     public String showAllArtistInfo(Artist[] art){
@@ -70,10 +35,10 @@ public class Festival {
 
         for (int i = 0; i < art.length; i++) {
             assistance += art[i].getCapacity(); 
-            if (art[i] instanceof Group && art[i].getSellMerch()){
+            if (art[i].getSellMerch()){
                 numSec += 2;
             }
-            else if (art[i] instanceof Solo && art[i].getDressingRoom()){
+            else if (art[i].getDressingRoom()){ 
                 numSec += 1;
             }
         }
@@ -106,17 +71,20 @@ public class Festival {
     }
 
 
-    public double calcPrice(Attendee[] att, Artist[] art, String artName, String attId){
+    public double calcPrice(Attendee[] att, Artist[] art, String artName, String attId){  //TODO: REPLANTEARSE LOS DESCUENTOS, SE APLICAN DE UNA? SE DESCUENTA UNO Y LUEGO OTRO???????
         double priceArt = 0;
-       for (int i = 0; i < att.length; i++) {
+        double toDiscount = 0;
+        double[] toReturn = new double[1];
+        for (int i = 0; i < att.length; i++) {
             if (att[i].getId().equalsIgnoreCase(attId)) {
                 for (int j = 0; j < art.length; j++) {
                     if (art[j].getName().equalsIgnoreCase(artName)) {
                         priceArt = art[j].getPrice();
+                        toReturn[0] = priceArt;
                         if (att[i].getPrevAtt() == true) {
                             priceArt = priceArt - (priceArt * iConstants.TICKETPREVATTENDEDISCOUNT);
                             if (att[i] instanceof VIPAttendee) {
-                                priceArt = priceArt - (priceArt* iConstants.TICKETVIP);
+                                priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
                             }
                         }
                         else if (att[i] instanceof VIPAttendee) {
@@ -127,16 +95,30 @@ public class Festival {
                 }
             }
         } 
+        toReturn[1] = priceArt;
         return priceArt;
     }
 
-    public double estimateMoney(Artist[] art){
+    public double estimateMoney(Artist[] art, String att){
+        int c = attPosition(atendeeList, att);
         double expectedSpent = 0;
+        double discount = 0;
         for (int i = 0; i < art.length; i++) {
-            if (art[i].getConfirmedAtt()){
-                expectedSpent += art[i].getPrice();
+            if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ //TODO: De nuevo, REPLANTEARSE LOS DESCUENTOS Y EL MÉTODO ENTERO AAAAAAAAAAAAAH
+                if (atendeeList[c] instanceof VIPAttendee) {
+                    discount += iConstants.TICKETVIP;
+                }
+                if (atendeeList[c].getPrevAtt()) {
+                    discount += iConstants.TICKETPREVATTENDEDISCOUNT;
+                }
+
+                expectedSpent += art[i].getPrice() * (1 - discount);
             } else if (art[i] instanceof Group && art[i].getSellMerch()){
-                expectedSpent += iConstants.TSHIRTPRICE;
+                if(atendeeList[c].getPrevAtt()){
+                    expectedSpent += iConstants.TSHIRTPRICE * iConstants.MERCHANDISCOUNTS;
+                } else {
+                    expectedSpent += iConstants.TSHIRTPRICE;
+                }
             }
         }
         return expectedSpent;
@@ -147,7 +129,7 @@ public class Festival {
         String str = "";
 
         for (int i = 0; i < att.length; i++) {
-            if (att[i].getId().equals(attId)){
+            if (att[i].getId().equalsIgnoreCase(attId)){
                 pos = i;
             }
         }
@@ -200,8 +182,9 @@ public class Festival {
 
         for (int i = 0; i < iConstants.TICKETS; i++) {
             if (!ticketBought && att.ticketList[i] == null){
+                int randomNum = (int)(Math.random() * 1001); //Asked about the random ID. Told it was OK
                 //Llamar aquí al precio
-                att.ticketList[i] = new Ticket(23, art); //CAMBIAR ESE 23!! TODO: PREGUNTAR QUÉ ID ASIGNAR (num aleatorio?, un método que lleve la cuenta de todos los tickets comprados?)
+                att.ticketList[i] = new Ticket(randomNum, art); 
                 ticketBought = true;  
             } 
         }

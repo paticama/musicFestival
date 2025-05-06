@@ -25,12 +25,6 @@ public abstract class Artist {
     public int getCapacity() {
         return capacity;
     }
-    public int getDuration() {
-        return duration;
-    }
-    public String getGenre() {
-        return genre;
-    }
     public String getName() {
         return name;
     }
@@ -40,27 +34,8 @@ public abstract class Artist {
     public boolean getConfirmedAtt(){
         return confirmedAtt;
     }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    public void setConfirmedAtt(boolean confirmedAtt) {
-        this.confirmedAtt = confirmedAtt;
-    }
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-    public void setHeadliner(boolean headliner) {
-        this.headliner = headliner;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPrice(double price) {
-        this.price = price;
+    public boolean getHeadliner() { //TODO: Recordad incluir en UML
+        return headliner;
     }
     public String toString(){
         String str = "Name: " + name + " Genre: " + genre + " Is a headliner?: " + 
