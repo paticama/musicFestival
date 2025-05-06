@@ -1,0 +1,45 @@
+public class Group extends Artist {
+    //We define class Group, which inherits from Artist while having some unique characteristics.
+    public boolean sellMerch;
+    public int memberNum;
+
+    public Group(String name, String genre, boolean headliner,  int capacity, int duration, double price,boolean confirmedAtt, int memberNum,boolean sellMerch) {
+            super(name, genre, headliner,capacity, duration, price,  confirmedAtt);
+            this.sellMerch = sellMerch;
+            this.memberNum = memberNum;
+        }
+    
+    public int getMemberNum(){
+        return memberNum;
+    }
+    public void setMemberNum(int memberNum){
+        this.memberNum= memberNum;
+    }
+
+    public boolean getSellMerch(){
+        return sellMerch;
+    }
+    public void setSellMerch(boolean sellMerch) {
+        this.sellMerch = sellMerch;
+    }
+    public boolean hasStand() {
+        if (sellMerch == true) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean getDressingRoom(){
+        return false; //THIS SHOULD NEVER HAPPEN!!
+    }
+
+    @Override
+    public String toString() {
+        return (super.toString() + " How many members are there in the group?: " +
+         memberNum +" Do they sell merchandising?: " + sellMerch);
+    }
+
+    
+}
