@@ -204,6 +204,7 @@ public class Main {
 
     public static void query5(Festival ourFestival){
         //If additional info on what this does is needed, please ask.
+        int numtickets = 0;
         Attendee att;
         System.out.println("Please, introduce your ID: ");
         String attID = INPUT.next();
@@ -214,30 +215,36 @@ public class Main {
             System.out.println("It seems you are not registered, so we will need some information");
             att = createNewAtt(attID);
         }
-        System.out.println("How many tickets do you want to buy?: ");
-        int numtickets = INPUT.nextInt();
-        if(numtickets > 0 && numtickets < iConstants.TICKETS){
-            for(int i=0; i < numtickets; i++){
-                System.out.println("What Artist do you want to buy tickets for?");
-                String arts = INPUT.next();
-                if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
-                    int artPos = Festival.artPosition(ourFestival.getArtList(), arts);
-                    Artist art = ourFestival.getArtList()[artPos];
-                    if(ourFestival.buyTicket(att, art)){
-                        System.out.println("Ticket bought for " + arts + ". Thanks!");
-                    }
-                    else {
-                        System.out.println("It looks like something went wrong, you have already acquired 7 tickets. ");
-                    }
-                } else {
-                    System.out.println("Something went wrong. That artist is not in our database");
-                }
+        do {
+            try {
+                System.out.println("How many tickets do you want to buy?: ");
+                numtickets = INPUT.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid number of tickets, a Attendee should have between 1 and 7 tickets");
             }
-        } else {
-            System.out.println("Invalid number of tickets. Remember you have a maximum of 7 and a minimum of 1 ticket when buying!");
+            
+        } while (numtickets < 1 || numtickets > 7);
+        
+        for(int i=0; i < numtickets; i++){
+            System.out.println("What Artist do you want to buy tickets for?");
+            String arts = INPUT.next();
+            if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
+                int artPos = Festival.artPosition(ourFestival.getArtList(), arts);
+                Artist art = ourFestival.getArtList()[artPos];
+                if(ourFestival.buyTicket(att, art)){
+                    double[] listPrice = ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), arts, attID);
+                    System.out.println("Tickets were originally " + listPrice[0] + 
+                    " after a discount of: " + listPrice[1] + "%, the final price is: " + listPrice[2]); 
+                    System.out.println("Ticket bought for " + arts + ". Thanks!");
+                }
+                else {
+                    System.out.println("It looks like something went wrong, you have already acquired 7 tickets. ");
+                }
+            } else {
+                System.out.println("Something went wrong. That artist is not in our database");
+            }
         }
     }
-
 
     public static void ShowMenu(Festival ourFestival){
         boolean finished = false;

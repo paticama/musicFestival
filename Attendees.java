@@ -68,17 +68,12 @@ public class Attendees{
         }
         return allRight;
     }
-
-    //public int CheckPrice(Tickets ticket){
-        //int price;
-        //return price;
-    //}
     
-    public String checkTicketInfo(Tickets ticket){ //NEEDS TO RETURN A SPECIFIC ATENDEE
+    public String checkTicketInfo(Tickets ticket){ 
         String info = ticket.toString();
         return info;
     }
-    //TODO: EstimateHeadliners, cannot be done as we can't read from txt files, y como carajo le saco el precio, que soy? vidente?
+    
     
 }
 

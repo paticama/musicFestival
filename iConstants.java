@@ -4,4 +4,4 @@ interface iConstants {
     double TICKETPREVATTENDEDISCOUNT = 0.1;
     double TICKETVIP = 0.15;
     int TICKETS = 7;
-} //TODO: renombrar estas variables por favor
+} 

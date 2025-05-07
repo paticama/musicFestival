@@ -9,6 +9,10 @@ public class Solo extends Artist {
             this.managerNum = managerNum;
     }
 
+    public boolean hasStand() {
+        return false;
+    }
+
     public boolean getDressingRoom(){
         return dressingRoom;
     }

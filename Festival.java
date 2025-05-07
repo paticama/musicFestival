@@ -32,7 +32,7 @@ public class Festival {
         int assistance = 0;
         int numSec = 0;
         double price;
-
+        //By every iteration of the for, we get the capacity of each artist and then we get to calculate every cost for the security company
         for (int i = 0; i < art.length; i++) {
             assistance += art[i].getCapacity(); 
             if (art[i].getSellMerch()){
@@ -71,15 +71,15 @@ public class Festival {
     }
 
 
-    public double[] calcPrice(Attendee[] att, Artist[] art, String artName, String attId){  //TODO: Cambiar tipo de retorno en UML
+    public double[] calcPrice(Attendee[] att, Artist[] art, String artName, String attId){  
         double priceArt = 0;
         double toDiscount = 0;
         double finalPrice = 0;
         double[] toReturn = new double[3];
-
+        //we get the position of atist and attendee array 
         int c = attPosition(att, attId);
         int d = artPosition(art, artName);
-
+        //we apply the discounts
         priceArt = art[d].getPrice();
         if (att[c].getPrevAtt() == true) {
             toDiscount += iConstants.TICKETPREVATTENDEDISCOUNT;
@@ -99,18 +99,19 @@ public class Festival {
     public double estimateMoney(Artist[] art, String att){
         double expectedSpentTickets = 0;
         double expectedSpentTShirts = 0;
-
-        //double discountTicket = 0;
-        
+        //we get the position of the array and the calculate the tshirts and the discounts for the attendee which ID was given
         int c = attPosition(atendeeList, att);
         for (int i = 0; i < art.length; i++) {
             if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ 
                 expectedSpentTickets += calcPrice(atendeeList, art, art[i].getName(), att)[2];
+                System.out.println("Artist: " + art[i].getName() + " Ticket" + calcPrice(atendeeList, art, art[i].getName(), att)[2]);
             } 
             if (art[i].getSellMerch() && art[i].getConfirmedAtt()){
                 if(atendeeList[c].getPrevAtt()){
+                    System.out.println("Artist: " + art[i].getName() + " TShirt" +  iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
                     expectedSpentTShirts += iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS);
                 } else {
+                    System.out.println("Artist: " + art[i].getName() + " TShirt" + iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
                     expectedSpentTShirts += iConstants.TSHIRTPRICE;
                 }
             }
@@ -137,7 +138,6 @@ public class Festival {
     }
 
     public String showInfoConcerts(Attendee[] att){
-        //Un for que recorra artistas y un if para ser vip y que tenga mercha ese grupo
         String str = "";
 
         for (int i = 0; i < att.length; i++) {
@@ -178,7 +178,7 @@ public class Festival {
         for (int i = 0; i < iConstants.TICKETS; i++) {
             if (!ticketBought && att.ticketList[i] == null){
                 int randomNum = (int)(Math.random() * 1001); //Asked about the random ID. Told it was OK
-                //Llamar aquí al precio
+                //Generate a new ticket object
                 att.ticketList[i] = new Ticket(randomNum, art); 
                 ticketBought = true;  
             } 

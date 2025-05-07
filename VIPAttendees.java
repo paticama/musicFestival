@@ -19,5 +19,4 @@ public class VIPAttendees extends Attendees {
         return str;
     }
 
-    //TODO: Show info. of the concerts with merchandising stands for which a VIP has purchased tickets  
 }
