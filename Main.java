@@ -191,10 +191,9 @@ public class Main {
             System.out.println("Alright. Which concert do you want to attend to?: ");
             String wantToAttend = INPUT.next();
             if(ourFestival.checkRealArtist(wantToAttend, ourFestival.getArtList())){
-                System.out.println(ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), wantToAttend, attID));
-                //double[] listPrice = ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), wantToAttend, attID);
-                //System.out.println("Tickets were originally: " + listPrice[2] +
-                //" after a discount of: " + listPrice[1] + "%, the final price is: " + listPrice[0] + " euros.");
+                double[] listPrice = ourFestival.calcPrice(ourFestival.getAttendeeList(), ourFestival.getArtList(), wantToAttend, attID);
+                System.out.println("Tickets were originally: " + listPrice[0] +
+                " after a discount of: " + listPrice[1] + "%, the final price is: " + listPrice[2] + " euros.");
             } else {
                 System.out.println("Something went wrong. That artist is not in our database");
             }
@@ -262,7 +261,7 @@ public class Main {
                 case 4:
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
-                    System.out.println("It would cost: " + ourFestival.estimateMoney(ourFestival.getArtList(), attID) + " euros");
+                    System.out.println("They would spend: " + ourFestival.estimateMoney(ourFestival.getArtList(), attID) + " euros");
                     break;
                 case 5:
                     query5(ourFestival);

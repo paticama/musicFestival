@@ -71,49 +71,48 @@ public class Festival {
     }
 
 
-    public double calcPrice(Attendee[] att, Artist[] art, String artName, String attId){  //TODO: REPLANTEARSE LOS DESCUENTOS, SE APLICAN DE UNA? SE DESCUENTA UNO Y LUEGO OTRO???????
+    public double[] calcPrice(Attendee[] att, Artist[] art, String artName, String attId){  //TODO: Cambiar tipo de retorno en UML
         double priceArt = 0;
         double toDiscount = 0;
-        double[] toReturn = new double[1];
-        for (int i = 0; i < att.length; i++) {
-            if (att[i].getId().equalsIgnoreCase(attId)) {
-                for (int j = 0; j < art.length; j++) {
-                    if (art[j].getName().equalsIgnoreCase(artName)) {
-                        priceArt = art[j].getPrice();
-                        toReturn[0] = priceArt;
-                        if (att[i].getPrevAtt() == true) {
-                            priceArt = priceArt - (priceArt * iConstants.TICKETPREVATTENDEDISCOUNT);
-                            if (att[i] instanceof VIPAttendee) {
-                                priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
-                            }
-                        }
-                        else if (att[i] instanceof VIPAttendee) {
-                            priceArt = priceArt - (priceArt * iConstants.TICKETVIP);
-                            
-                        }
-                    }
-                }
-            }
-        } 
-        toReturn[1] = priceArt;
-        return priceArt;
+        double finalPrice = 0;
+        double[] toReturn = new double[3];
+
+        int c = attPosition(att, attId);
+        int d = artPosition(art, artName);
+
+        priceArt = art[d].getPrice();
+        if (att[c].getPrevAtt() == true) {
+            toDiscount += iConstants.TICKETPREVATTENDEDISCOUNT;
+        }
+        if (att[c] instanceof VIPAttendee) {
+            toDiscount += iConstants.TICKETVIP;
+        }
+         
+        finalPrice = priceArt  * (1-toDiscount);
+
+        toReturn[0] = priceArt;
+        toReturn[1] = toDiscount;
+        toReturn[2] = finalPrice;
+        return toReturn;
     }
 
     public double estimateMoney(Artist[] art, String att){
-        int c = attPosition(atendeeList, att);
         double expectedSpent = 0;
-        double discount = 0;
+        //double discountTicket = 0;
+        
+        int c = attPosition(atendeeList, att);
         for (int i = 0; i < art.length; i++) {
             if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ //TODO: De nuevo, REPLANTEARSE LOS DESCUENTOS Y EL MÉTODO ENTERO AAAAAAAAAAAAAH
+                double discountTicket = 0;
                 if (atendeeList[c] instanceof VIPAttendee) {
-                    discount += iConstants.TICKETVIP;
+                    discountTicket += iConstants.TICKETVIP;
                 }
                 if (atendeeList[c].getPrevAtt()) {
-                    discount += iConstants.TICKETPREVATTENDEDISCOUNT;
+                    discountTicket += iConstants.TICKETPREVATTENDEDISCOUNT;
                 }
 
-                expectedSpent += art[i].getPrice() * (1 - discount);
-            } else if (art[i] instanceof Group && art[i].getSellMerch()){
+                expectedSpent += art[i].getPrice() * (1 - discountTicket);
+            } else if (art[i] instanceof Group && art[i].getSellMerch() && art[i].getConfirmedAtt()){
                 if(atendeeList[c].getPrevAtt()){
                     expectedSpent += iConstants.TSHIRTPRICE * iConstants.MERCHANDISCOUNTS;
                 } else {
