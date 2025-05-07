@@ -34,7 +34,7 @@ public abstract class Artist {
     public boolean getConfirmedAtt(){
         return confirmedAtt;
     }
-    public boolean getHeadliner() { //TODO: Recordad incluir en UML
+    public boolean getHeadliner() { 
         return headliner;
     }
     public String toString(){
