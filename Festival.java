@@ -97,30 +97,29 @@ public class Festival {
     }
 
     public double estimateMoney(Artist[] art, String att){
-        double expectedSpent = 0;
+        double expectedSpentTickets = 0;
+        double expectedSpentTShirts = 0;
+
         //double discountTicket = 0;
         
         int c = attPosition(atendeeList, att);
         for (int i = 0; i < art.length; i++) {
-            if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ //TODO: De nuevo, REPLANTEARSE LOS DESCUENTOS Y EL MÉTODO ENTERO AAAAAAAAAAAAAH
-                double discountTicket = 0;
-                if (atendeeList[c] instanceof VIPAttendee) {
-                    discountTicket += iConstants.TICKETVIP;
-                }
-                if (atendeeList[c].getPrevAtt()) {
-                    discountTicket += iConstants.TICKETPREVATTENDEDISCOUNT;
-                }
-
-                expectedSpent += art[i].getPrice() * (1 - discountTicket);
-            } else if (art[i] instanceof Group && art[i].getSellMerch() && art[i].getConfirmedAtt()){
+            if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ 
+                expectedSpentTickets += calcPrice(atendeeList, art, art[i].getName(), att)[2];
+                System.out.println("Artist: " + art[i].getName() + " Ticket" + calcPrice(atendeeList, art, art[i].getName(), att)[2]);
+            } 
+            if (art[i].getSellMerch() && art[i].getConfirmedAtt()){
                 if(atendeeList[c].getPrevAtt()){
-                    expectedSpent += iConstants.TSHIRTPRICE * iConstants.MERCHANDISCOUNTS;
+                    System.out.println("Artist: " + art[i].getName() + " TShirt" +  iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
+                    expectedSpentTShirts += iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS);
                 } else {
-                    expectedSpent += iConstants.TSHIRTPRICE;
+                    System.out.println("Artist: " + art[i].getName() + " TShirt" + iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
+                    expectedSpentTShirts += iConstants.TSHIRTPRICE;
                 }
             }
         }
-        return expectedSpent;
+
+        return expectedSpentTickets + expectedSpentTShirts;
     }
 
     public String showInfoTicket(String attId, Attendee[] att){

@@ -41,7 +41,7 @@ public abstract class Artist {
         String str = "Name: " + name + " Genre: " + genre + " Is a headliner?: " + 
         headliner + " Has confirmed assistance: " + confirmedAtt + 
         " Capacity for the concert: " + capacity + " Duration of the concert: " +
-        duration + " Price: " + price;
+        duration + " Price: " + price + " ";
         return (str);
     }
 }

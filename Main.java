@@ -202,7 +202,7 @@ public class Main {
         }
     }
 
-    public static  void query5(Festival ourFestival){
+    public static void query5(Festival ourFestival){
         //If additional info on what this does is needed, please ask.
         Attendee att;
         System.out.println("Please, introduce your ID: ");
@@ -261,7 +261,11 @@ public class Main {
                 case 4:
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
-                    System.out.println("They would spend: " + ourFestival.estimateMoney(ourFestival.getArtList(), attID) + " euros");
+                    if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
+                        System.out.println("They would spend: " + ourFestival.estimateMoney(ourFestival.getArtList(), attID) + " euros");
+                    } else {
+                        System.out.println("Something went wrong. That attendee is not in our database. ");
+                    }
                     break;
                 case 5:
                     query5(ourFestival);
