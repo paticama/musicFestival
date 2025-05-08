@@ -104,14 +104,11 @@ public class Festival {
         for (int i = 0; i < art.length; i++) {
             if (art[i].getConfirmedAtt() && art[i].getHeadliner()){ 
                 expectedSpentTickets += calcPrice(atendeeList, art, art[i].getName(), att)[2];
-                System.out.println("Artist: " + art[i].getName() + " Ticket" + calcPrice(atendeeList, art, art[i].getName(), att)[2]);
             } 
             if (art[i].getSellMerch() && art[i].getConfirmedAtt()){
                 if(atendeeList[c].getPrevAtt()){
-                    System.out.println("Artist: " + art[i].getName() + " TShirt" +  iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
                     expectedSpentTShirts += iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS);
                 } else {
-                    System.out.println("Artist: " + art[i].getName() + " TShirt" + iConstants.TSHIRTPRICE * (1 - iConstants.MERCHANDISCOUNTS));
                     expectedSpentTShirts += iConstants.TSHIRTPRICE;
                 }
             }
@@ -131,7 +128,7 @@ public class Festival {
         }
         for(int i = 0; i < att[pos].ticketList.length; i++){
             if (att[pos].ticketList[i] != null) {
-                str += (att[pos].ticketList[i].toString());
+                str += (att[pos].ticketList[i].toString() + "\n");
             }
         }
         return str;
@@ -149,6 +146,10 @@ public class Festival {
                 }
             }
         }
+        if (str.equals("")){
+            str = "No VIP has purchased tickets for a concert with merch. ";
+        }
+
         return str;
     }
 

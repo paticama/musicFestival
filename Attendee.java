@@ -2,7 +2,7 @@ public class Attendee{
     String name, id, creditNum; 
     boolean prevAtt, isVIP;
     
-    Ticket[] ticketList = new Ticket[iConstants.TICKETS - 1];
+    Ticket[] ticketList = new Ticket[iConstants.TICKETS];
 
     public Attendee(String n, String i, String cred, boolean prev, boolean vip){
         this.name = n;

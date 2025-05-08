@@ -12,7 +12,7 @@ public class Ticket{
     }
  
     public String toString(){
-        String str = "Ticket ID: " + id + "Artist info: " + forWho.toString();
+        String str = "Ticket ID: " + id + " Artist info: " + forWho.toString();
         return str;
     }
 

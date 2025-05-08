@@ -128,9 +128,10 @@ public class Main {
     } 
 
     public static Attendee createNewAtt(String id){
+        //Creates a new attendee that will not be saved
         String name, crednum;
-        boolean prevAtt, vip, isNum;
-        int vipnum = 0; 
+        boolean prevAtt, vip;
+        int vipnum; 
         Attendee newAtt;
 
         System.out.println("We need your some more information, please give us the next data: ");
@@ -169,7 +170,7 @@ public class Main {
 
     }
 
-    public static void printMenu(){ //Is this even correct?
+    public static void printMenu(){ 
         System.out.println("Choose one of the following options: ");
         System.out.println("1. Show the information of all scheduled artists.");
         System.out.println("2. Calculate how much the festival's security service would cost.");
@@ -200,7 +201,6 @@ public class Main {
     }
 
     public static void query5(Festival ourFestival){
-        //If additional info on what this does is needed, please ask.
         int numtickets = 0;
         Attendee att;
         System.out.println("Please, introduce your ID: ");
@@ -217,13 +217,14 @@ public class Main {
                 System.out.println("How many tickets do you want to buy?: ");
                 numtickets = INPUT.nextInt();
             } catch (Exception e) {
-                System.out.println("Invalid number of tickets, a Attendee should have between 1 and 7 tickets");
+                System.out.println("Invalid number of tickets, an attendee should have between 1 and 7 tickets");
+                INPUT.next();
             }
             
         } while (numtickets < 1 || numtickets > 7);
         
         for(int i=0; i < numtickets; i++){
-            System.out.println("What Artist do you want to buy tickets for?");
+            System.out.println("What artist do you want to buy tickets for?");
             String arts = INPUT.next();
             if(ourFestival.checkRealArtist(arts, ourFestival.getArtList())){
                 int artPos = Festival.artPosition(ourFestival.getArtList(), arts);
@@ -236,9 +237,11 @@ public class Main {
                 }
                 else {
                     System.out.println("It looks like something went wrong, you have already acquired 7 tickets. ");
+                    i = numtickets;
                 }
             } else {
                 System.out.println("Something went wrong. That artist is not in our database");
+                i--;
             }
         }
     }
@@ -284,7 +287,6 @@ public class Main {
                     query5(ourFestival);
                     break;
                 case 6:
-                    //Should I modularize this? I think it looks OK tbh
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
                     if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
@@ -309,6 +311,7 @@ public class Main {
                     System.out.println("Sorry, that option is not in the menu.");
                     break;
             }
+            isNum = false;
         } while (!finished);
     }
 }
