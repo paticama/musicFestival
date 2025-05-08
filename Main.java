@@ -282,7 +282,12 @@ public class Main {
                     System.out.println("Please, introduce your ID: ");
                     attID = INPUT.next();
                     if (ourFestival.checkRegistedAttendee(attID, ourFestival.getAttendeeList())){
-                        System.out.println(ourFestival.showInfoTicket(attID, ourFestival.getAttendeeList()));
+                        String str = ourFestival.showInfoTicket(attID, ourFestival.getAttendeeList());
+                        if (str.equals("")){
+                            System.out.println("This attendee has no tickets");
+                        } else {
+                            System.out.println(str);
+                        }
                     } else {
                         System.out.println("Something went wrong. That attendee is not in our database. ");
                     }
