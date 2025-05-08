@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
     static final Scanner INPUT = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException,FileNotFoundException {
+    public static void main(String[] args) throws IOException,FileNotFoundException,InputMismatchException {
         try {
             Artist[] artList = readArtist("Artistas.txt");
             Attendee[] attList = readAttendee("Asistentes.txt");
@@ -130,7 +130,7 @@ public class Main {
     public static Attendee createNewAtt(String id){
         String name, crednum;
         boolean prevAtt, vip, isNum;
-        int vipnum; 
+        int vipnum = 0; 
         Attendee newAtt;
 
         System.out.println("We need your some more information, please give us the next data: ");
@@ -156,12 +156,9 @@ public class Main {
         }
         vip = INPUT.nextBoolean();
 
-        if (vip == true) {
-            do {
-                System.out.println("Tell me your vip number: ");
-                vipnum = INPUT.nextInt();
-                isNum = misException(vipnum);
-            } while (isNum = false);
+        if (vip == true) {   
+            System.out.println("Tell me your vip number: ");
+            vipnum = INPUT.nextInt();
             newAtt = new VIPAttendee(name, id, crednum,vipnum, prevAtt, vip);
         }
         else{
@@ -247,15 +244,20 @@ public class Main {
     }
 
     public static void ShowMenu(Festival ourFestival){
-        boolean finished = false,isNum;
+        boolean finished = false,isNum = false;
         String attID;
         int option = 0;
         do {
-            printMenu();
-            do {
-                option = INPUT.nextInt();
-                isNum = misException(option);
-            } while (isNum = false);
+            while (isNum == false) {
+                printMenu();
+                try {
+                    option = INPUT.nextInt();
+                    isNum = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Not a number, try again");
+                    INPUT.next();
+                }
+            }
             switch(option){
                 //Some cases are left unmodularized. A two-sentence method looks a bit weird
                 case 1:
@@ -308,15 +310,5 @@ public class Main {
                     break;
             }
         } while (!finished);
-    }
-    public static boolean misException(int t){
-        boolean isNumber;
-            try {
-                isNumber = true;
-            } catch (InputMismatchException e) {
-                System.out.println("Not a number, please try again");
-                isNumber = false;
-            }
-        return isNumber;
     }
 }
