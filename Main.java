@@ -247,11 +247,15 @@ public class Main {
     }
 
     public static void ShowMenu(Festival ourFestival){
-        boolean finished = false;
+        boolean finished = false,isNum;
         String attID;
+        int option = 0;
         do {
             printMenu();
-            int option = INPUT.nextInt();
+            do {
+                option = INPUT.nextInt();
+                isNum = misException(option);
+            } while (isNum = false);
             switch(option){
                 //Some cases are left unmodularized. A two-sentence method looks a bit weird
                 case 1:
